@@ -36,12 +36,10 @@ static class PSMGame
 		Director.Instance.GL.Context.SetClearColor( Colors.Grey20 );
 
 		// set debug flags that display rulers to debug coordinates
-//		Director.Instance.DebugFlags |= DebugFlags.DrawGrid;
+		Director.Instance.DebugFlags |= DebugFlags.DrawGrid;
 		// set the camera navigation debug flag (press left alt + mouse to navigate in 2d space)
 		Director.Instance.DebugFlags |= DebugFlags.Navigate; 
 
-		// create a new scene
-		//var scene = new Scene();
 		
 		var scene = new MainScene();
 		// set the camera so that the part of the word we see on screen matches in screen coordinates
