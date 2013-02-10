@@ -8,8 +8,8 @@
     <ProjectGuid>{22A7FEC2-BEA6-480B-84FB-10C7B532BF54}</ProjectGuid>
     <ProjectTypeGuids>{69878862-DA7D-4DC6-B0A1-50D8FAB4242F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>PSMGame</RootNamespace>
     <AssemblyName>PSMGame</AssemblyName>
+    <RootNamespace>PSM</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppMain.cs" />
+    <Compile Include="GameScenes\MainScene.cs" />
+    <Compile Include="Components\Layer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -49,4 +51,17 @@
     <PsmMetadata Include="app.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Sce\Sce.Psm.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="king_water_drop.png" />
+    <Content Include="assets\square.png" />
+    <Content Include="assets\background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GameScenes\" />
+    <Folder Include="assets\" />
+    <Folder Include="Components\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\background.jpg" />
+  </ItemGroup>
 </Project>
