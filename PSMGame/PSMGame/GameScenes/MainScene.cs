@@ -60,6 +60,7 @@ public class MainScene : Scene
 		
 		_player = new SpriteUV (new TextureInfo ("/Application/assets/square.png"));
 		_player.Quad.S = _player.TextureInfo.TextureSizef;
+		_player.Pivot = new Vector2(_player.TextureInfo.Texture.Width / 2f, _player.TextureInfo.Texture.Height / 2f );
 		_player.Position = Camera.CalcBounds().Center;
 		
 		//AddChild (new SpriteUV(new TextureInfo("/Application/king_water_drop.png")));
@@ -81,12 +82,14 @@ public class MainScene : Scene
 		 Vector2 dummy1 = new Vector2();
          Vector2 dummy2 = new Vector2();
 		_physics.Simulate(-1,ref dummy1,ref dummy2);
+		
 		_player.Position = _physics.sceneBodies[0].position;
 		_player.Angle = _physics.sceneBodies[0].rotation;
+		
 		SceneCamera.Center = _player.Position;
+		
 		_background.Update(dt);
 		base.Update (dt);
-		//	sprite.Position  += new Vector2(2,0);
 	}
 }
 

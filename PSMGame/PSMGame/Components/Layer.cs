@@ -16,7 +16,7 @@ public class Layer : Node
  {
 	public float ScrollRateX { get; set; }
 	public float ScrollRateY { get; set; }
-	private Camera2D Camera;
+	public Camera2D Camera {get; private set;}
 	
 	public Layer (Camera2D camera, float scrollRateX = 1f, float scrollRateY = 1f) 
 	{
