@@ -22,9 +22,11 @@ public class MainScene : Scene
 	private Layer _background;
 	private Layer _main;
 	private Camera2D SceneCamera;
+	private bool _joined;
 		
 	public MainScene ()
 	{
+		_joined = false;
 		this.ScheduleUpdate ();
 		Vector2 ideal_screen_size = new Vector2(960.0f, 544.0f);
 		
@@ -87,6 +89,19 @@ public class MainScene : Scene
 		_player.Angle = _physics.sceneBodies[0].rotation;
 		
 		SceneCamera.Center = _player.Position;
+						
+		if(_physics.QueryContact((uint)0, (uint)1) && !_joined)
+		{
+			PhysicsBody b1 = _physics.sceneBodies[0];
+			PhysicsBody b2 = _physics.sceneBodies[1];
+			_physics.sceneJoints[_physics.numJoint] = new PhysicsJoint(b1, b2, (b1.position), (uint)0, (uint)1);
+			_physics.sceneJoints[_physics.numJoint].axis1Lim = new Vector2(1, 0);
+			_physics.sceneJoints[_physics.numJoint].axis2Lim = new Vector2(0, 1);
+			_physics.sceneJoints[_physics.numJoint].angleLim = 1;
+			_physics.numJoint++;
+			_joined = true;
+		}
+
 		
 		_background.Update(dt);
 		base.Update (dt);
