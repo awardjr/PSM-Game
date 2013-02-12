@@ -43,7 +43,6 @@
     <Compile Include="GameScenes\MainScene.cs" />
     <Compile Include="Components\Layer.cs" />
     <Compile Include="Components\PlayerInput.cs" />
-    <Compile Include="Components\PhysicsSprite.cs" />
     <Compile Include="Components\PhysicalSpriteUV.cs" />
   </ItemGroup>
   <ItemGroup>
