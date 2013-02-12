@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PSMGame\GameScenes\MainScene.cs">
+    <Files>
+      <File FileName="PSMGame\AppMain.cs" Line="76" Column="1" />
+      <File FileName="PSMGame\GameScenes\MainScene.cs" Line="45" Column="76" />
+      <File FileName="PSMGame\Components\Layer.cs" Line="19" Column="18" />
+      <File FileName="PSMGame\Components\PlayerInput.cs" Line="1" Column="1" />
+      <File FileName="PSMGame\Components\PhysicalSpriteUV.cs" Line="22" Column="53" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

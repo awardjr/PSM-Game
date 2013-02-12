@@ -18,15 +18,14 @@ public class MainScene : Scene
 
 	public SpriteList Sprites { get; private set; }
 
-	private SpriteUV _player;
+	private PhysicalSpriteUV _player;
+	private PhysicalSpriteUV _block;
 	private Layer _background;
 	private Layer _main;
 	private Camera2D SceneCamera;
-	private bool _joined;
 		
 	public MainScene ()
 	{
-		_joined = false;
 		this.ScheduleUpdate ();
 		Vector2 ideal_screen_size = new Vector2(960.0f, 544.0f);
 		
@@ -37,33 +36,20 @@ public class MainScene : Scene
 		
 		_physics = new PhysicsScene();
 		_physics.InitScene();
-		PhysicsShape shape = new PhysicsShape(10);
-		PhysicsBody body = new PhysicsBody(shape, 100);
 		
-		_physics.sceneShapes[0] = shape; 
-		_physics.sceneBodies[0] = body;
-		_physics.sceneBodies[0].rotation = 0.1f;
-		_physics.sceneBodies[0].position = SceneCamera.CalcBounds().Center;
+		_player = new PhysicalSpriteUV (new TextureInfo ("/Application/assets/square.png"), _physics);
+		_player.Position = Camera.CalcBounds().Center;
+		_player.PhysicsScene.sceneBodies[_player.BodyIndex].position = SceneCamera.CalcBounds().Center;
+
 		
-		PhysicsShape shape2 = new PhysicsShape(50);
-		PhysicsBody body2 = new PhysicsBody(shape2, 10);
-		
-		_physics.sceneShapes[1] = shape2;
-		_physics.sceneBodies[1] = body2;
-		_physics.sceneBodies[1].position = new Vector2(SceneCamera.CalcBounds().Center.X + 10, SceneCamera.CalcBounds().Center.Y - 100);
-		_physics.sceneBodies[1].SetBodyStatic();
-		_physics.sceneBodies[1].SetBodyKinematic();
+		_block = new PhysicalSpriteUV(new TextureInfo("/Application/assets/square.png"), _physics);
+		_physics.sceneBodies[_block.BodyIndex].position = new Vector2(SceneCamera.CalcBounds().Center.X + 10, SceneCamera.CalcBounds().Center.Y - 100);
+		_physics.sceneBodies[_block.BodyIndex].SetBodyStatic();
+		_physics.sceneBodies[_block.BodyIndex].SetBodyKinematic();
 		
 		_physics.restitutionCoeff = 0.9f;
 		_physics.sceneMax = new Vector2(10000, 10000);
 		_physics.sceneMin = new Vector2(-10000, -10000);
-		_physics.numBody = 2;
-		_physics.numShape = 2;
-		
-		_player = new SpriteUV (new TextureInfo ("/Application/assets/square.png"));
-		_player.Quad.S = _player.TextureInfo.TextureSizef;
-		_player.Pivot = new Vector2(_player.TextureInfo.Texture.Width / 2f, _player.TextureInfo.Texture.Height / 2f );
-		_player.Position = Camera.CalcBounds().Center;
 		
 		//AddChild (new SpriteUV(new TextureInfo("/Application/king_water_drop.png")));
 		_main.AddChild (_player);
@@ -74,6 +60,7 @@ public class MainScene : Scene
 		background.Position = SceneCamera.CalcBounds().Center;
 		_background.AddChild(background);     
 		AddChild(_background);
+		AddChild(_block);
 		AddChild(_main);
 	
 		
@@ -85,28 +72,26 @@ public class MainScene : Scene
          Vector2 dummy2 = new Vector2();
 		_physics.Simulate(-1,ref dummy1,ref dummy2);
 		
-		_player.Position = _physics.sceneBodies[0].position;
-		_player.Angle = _physics.sceneBodies[0].rotation;
+		_player.Position = _physics.sceneBodies[_player.BodyIndex].position;
+		_player.Angle = _physics.sceneBodies[_player.BodyIndex].rotation;
+		
+		_block.Position = _physics.sceneBodies[_block.BodyIndex].position;
+		_block.Angle = _physics.sceneBodies[_block.BodyIndex].rotation;
+
 		
 		SceneCamera.Center = _player.Position;
-		if(!_joined){
+		
+		if(!_player.Joined){
 			float movement = PlayerInput.LeftRightAxis();
 			if(movement != 0.0f)
 			{
 				Console.WriteLine("------MOVING------");
-				_physics.sceneBodies[0].Velocity = new Vector2(100 * movement, _physics.sceneBodies[0].Velocity.Y);
+				_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(100 * movement, _physics.sceneBodies[_player.BodyIndex].Velocity.Y);
 			}
 			
-			if(_physics.QueryContact((uint)0, (uint)1))
+			if(_physics.QueryContact((uint)_player.BodyIndex, (uint)_block.BodyIndex))
 			{
-				PhysicsBody b1 = _physics.sceneBodies[0];
-				PhysicsBody b2 = _physics.sceneBodies[1];
-				_physics.sceneJoints[_physics.numJoint] = new PhysicsJoint(b1, b2, (b1.position), (uint)0, (uint)1);
-				_physics.sceneJoints[_physics.numJoint].axis1Lim = new Vector2(1, 0);
-				_physics.sceneJoints[_physics.numJoint].axis2Lim = new Vector2(0, 1);
-				_physics.sceneJoints[_physics.numJoint].angleLim = 1;
-				_physics.numJoint++;
-				_joined = true;
+				_player.AddJoint((uint)_block.BodyIndex);
 			}
 		}
 		else
@@ -114,11 +99,9 @@ public class MainScene : Scene
 			if(PlayerInput.JumpButton())
 			{
 				System.Console.WriteLine("------JUMPING------");
-				_physics.sceneJoints[_physics.numJoint - 1] = null;
-				_physics.numJoint--;
-				_physics.sceneBodies[0].Velocity = new Vector2(0, 250);
-				_physics.sceneBodies[0].Acceleration = new Vector2(0, 150);
-				_joined = false;
+				_player.RemoveJoint();
+				_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(0, 250);
+				_physics.sceneBodies[_player.BodyIndex].Acceleration = new Vector2(0, 150);
 			}
 		}
 

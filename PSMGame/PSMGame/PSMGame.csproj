@@ -43,6 +43,7 @@
     <Compile Include="GameScenes\MainScene.cs" />
     <Compile Include="Components\Layer.cs" />
     <Compile Include="Components\PlayerInput.cs" />
+    <Compile Include="Components\PhysicalSpriteUV.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -56,6 +57,7 @@
     <Content Include="king_water_drop.png" />
     <Content Include="assets\square.png" />
     <Content Include="assets\background.png" />
+    <Content Include="assets\floor.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />
