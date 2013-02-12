@@ -47,7 +47,7 @@ static class PSMGame
 
 		Director.Instance.RunWithScene( scene, true );
 		
-		while ( !Input2.GamePad0.Cross.Press )
+		while ( !PlayerInput.StartButton() )
 		{
 			Sce.PlayStation.Core.Environment.SystemEvents.CheckEvents();
 

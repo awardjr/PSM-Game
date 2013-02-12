@@ -89,17 +89,37 @@ public class MainScene : Scene
 		_player.Angle = _physics.sceneBodies[0].rotation;
 		
 		SceneCamera.Center = _player.Position;
-						
-		if(_physics.QueryContact((uint)0, (uint)1) && !_joined)
+		if(!_joined){
+			float movement = PlayerInput.LeftRightAxis();
+			if(movement != 0.0f)
+			{
+				Console.WriteLine("------MOVING------");
+				_physics.sceneBodies[0].Velocity = new Vector2(100 * movement, _physics.sceneBodies[0].Velocity.Y);
+			}
+			
+			if(_physics.QueryContact((uint)0, (uint)1))
+			{
+				PhysicsBody b1 = _physics.sceneBodies[0];
+				PhysicsBody b2 = _physics.sceneBodies[1];
+				_physics.sceneJoints[_physics.numJoint] = new PhysicsJoint(b1, b2, (b1.position), (uint)0, (uint)1);
+				_physics.sceneJoints[_physics.numJoint].axis1Lim = new Vector2(1, 0);
+				_physics.sceneJoints[_physics.numJoint].axis2Lim = new Vector2(0, 1);
+				_physics.sceneJoints[_physics.numJoint].angleLim = 1;
+				_physics.numJoint++;
+				_joined = true;
+			}
+		}
+		else
 		{
-			PhysicsBody b1 = _physics.sceneBodies[0];
-			PhysicsBody b2 = _physics.sceneBodies[1];
-			_physics.sceneJoints[_physics.numJoint] = new PhysicsJoint(b1, b2, (b1.position), (uint)0, (uint)1);
-			_physics.sceneJoints[_physics.numJoint].axis1Lim = new Vector2(1, 0);
-			_physics.sceneJoints[_physics.numJoint].axis2Lim = new Vector2(0, 1);
-			_physics.sceneJoints[_physics.numJoint].angleLim = 1;
-			_physics.numJoint++;
-			_joined = true;
+			if(PlayerInput.JumpButton())
+			{
+				System.Console.WriteLine("------JUMPING------");
+				_physics.sceneJoints[_physics.numJoint - 1] = null;
+				_physics.numJoint--;
+				_physics.sceneBodies[0].Velocity = new Vector2(0, 250);
+				_physics.sceneBodies[0].Acceleration = new Vector2(0, 150);
+				_joined = false;
+			}
 		}
 
 		

@@ -42,6 +42,7 @@
     <Compile Include="AppMain.cs" />
     <Compile Include="GameScenes\MainScene.cs" />
     <Compile Include="Components\Layer.cs" />
+    <Compile Include="Components\PlayerInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
