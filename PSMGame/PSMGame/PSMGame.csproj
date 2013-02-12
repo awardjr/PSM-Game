@@ -58,6 +58,7 @@
     <Content Include="assets\square.png" />
     <Content Include="assets\background.png" />
     <Content Include="assets\floor.png" />
+    <Content Include="assets\circle.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />

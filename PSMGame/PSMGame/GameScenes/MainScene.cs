@@ -37,13 +37,13 @@ public class MainScene : Scene
 		_physics = new PhysicsScene();
 		_physics.InitScene();
 		
-		_player = new PhysicalSpriteUV (new TextureInfo ("/Application/assets/square.png"), _physics);
+		_player = new PhysicalSpriteUV (new TextureInfo ("/Application/assets/circle.png"), _physics, true);
 		_player.Position = Camera.CalcBounds().Center;
-		_player.PhysicsScene.sceneBodies[_player.BodyIndex].position = SceneCamera.CalcBounds().Center;
+		_player.PositionAll = SceneCamera.CalcBounds().Center;
 
 		
-		_block = new PhysicalSpriteUV(new TextureInfo("/Application/assets/square.png"), _physics);
-		_physics.sceneBodies[_block.BodyIndex].position = new Vector2(SceneCamera.CalcBounds().Center.X + 10, SceneCamera.CalcBounds().Center.Y - 100);
+		_block = new PhysicalSpriteUV(new TextureInfo("/Application/assets/floor.png"), _physics);
+		_block.PositionAll = new Vector2(SceneCamera.CalcBounds().Center.X + 10, SceneCamera.CalcBounds().Center.Y - 100);
 		_physics.sceneBodies[_block.BodyIndex].SetBodyStatic();
 		_physics.sceneBodies[_block.BodyIndex].SetBodyKinematic();
 		
@@ -68,19 +68,6 @@ public class MainScene : Scene
 
 	public override void Update (float dt)
 	{
-		 Vector2 dummy1 = new Vector2();
-         Vector2 dummy2 = new Vector2();
-		_physics.Simulate(-1,ref dummy1,ref dummy2);
-		
-		_player.Position = _physics.sceneBodies[_player.BodyIndex].position;
-		_player.Angle = _physics.sceneBodies[_player.BodyIndex].rotation;
-		
-		_block.Position = _physics.sceneBodies[_block.BodyIndex].position;
-		_block.Angle = _physics.sceneBodies[_block.BodyIndex].rotation;
-
-		
-		SceneCamera.Center = _player.Position;
-		
 		if(!_player.Joined){
 			float movement = PlayerInput.LeftRightAxis();
 			if(movement != 0.0f)
@@ -89,7 +76,7 @@ public class MainScene : Scene
 				_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(100 * movement, _physics.sceneBodies[_player.BodyIndex].Velocity.Y);
 			}
 			
-			if(_physics.QueryContact((uint)_player.BodyIndex, (uint)_block.BodyIndex))
+			if(_player.Intersects((uint)_block.BodyIndex))
 			{
 				_player.AddJoint((uint)_block.BodyIndex);
 			}
@@ -105,6 +92,16 @@ public class MainScene : Scene
 			}
 		}
 
+		
+		Vector2 dummy1 = new Vector2();
+        Vector2 dummy2 = new Vector2();
+		_physics.Simulate(-1,ref dummy1,ref dummy2);
+		
+		_player.Update(dt);
+		
+		_block.Update (dt);
+		
+		SceneCamera.Center = _player.Position;
 		
 		_background.Update(dt);
 		base.Update (dt);

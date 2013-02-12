@@ -15,7 +15,7 @@ using Sce.PlayStation.HighLevel.Physics2D;
 
 	public class PhysicalSpriteUV : SpriteUV
 	{
-		public PhysicalSpriteUV (TextureInfo textureInfo, PhysicsScene physicsScene) : base(textureInfo)
+		public PhysicalSpriteUV (TextureInfo textureInfo, PhysicsScene physicsScene, bool circle = false) : base(textureInfo)
 		{
 			// Texture Setup
 			Quad.S = TextureInfo.TextureSizef;
@@ -28,9 +28,19 @@ using Sce.PlayStation.HighLevel.Physics2D;
 			JointIndex = -1;
 		
 			// Create shapes (will want to let the programmer pass in things like friction and rotation at some point, AND SPECIFY CIRCLE OR SQUARE SHAPE)
-			PhysicsShape shape = new PhysicsShape(new Vector2(textureInfo.Texture.Width/2, textureInfo.Texture.Height/2));
+			PhysicsShape shape;
+			if(!circle)
+			{
+				shape = new PhysicsShape(new Vector2(textureInfo.Texture.Width/2, textureInfo.Texture.Height/2));
+			}
+			else
+			{
+				shape = new PhysicsShape(textureInfo.Texture.Width/2);				
+			}
+		
 			// Why 100?
 			PhysicsBody body = new PhysicsBody(shape, 100);
+			body.ShapeIndex = (uint)ShapeIndex;
 		
 			PhysicsScene.sceneShapes[ShapeIndex] = shape;
 			PhysicsScene.sceneBodies[BodyIndex] = body;
@@ -68,7 +78,26 @@ using Sce.PlayStation.HighLevel.Physics2D;
 		
 			return true;
 		}
+	
+		public bool Intersects(uint bodyIndex)
+		{
+			return PhysicsScene.QueryContact((uint)BodyIndex, bodyIndex);
+		}
+	
+		public override void Update(float dt)
+		{
+			PositionTexture = PositionPhysics - Pivot;
+			AngleTexture = AnglePhysics;
 		
+			base.Update(dt);
+		}
+		
+		public Vector2 PositionAll { set { Position = value; PhysicsScene.SceneBodies[BodyIndex].Position = value; } }
+		public Vector2 PositionPhysics { get{ return PhysicsScene.SceneBodies[BodyIndex].Position; } set { PhysicsScene.SceneBodies[BodyIndex].Position = value; } }
+		public Vector2 PositionTexture { get{ return Position; } set { Position = value; } }
+		public float AngleAll { set { Angle = value; PhysicsScene.SceneBodies[BodyIndex].Rotation = value; } }
+		public float AnglePhysics { get { return PhysicsScene.SceneBodies[BodyIndex].Rotation; } set { PhysicsScene.SceneBodies[BodyIndex].Rotation = value; } }
+		public float AngleTexture { get { return Angle; } set { Angle = value; } }
 		public PhysicsScene PhysicsScene { get; set; }
 		public int ShapeIndex { get; set; }
 		public int BodyIndex { get; set; }
