@@ -31,7 +31,7 @@ public class MainScene : Scene
 		
 		SceneCamera = (Camera2D)Camera;
 		SceneCamera.SetViewFromHeightAndCenter(ideal_screen_size.Y, ideal_screen_size / 2.0f);
-		_background = new Layer (SceneCamera, 1f, 1f);
+		_background = new Layer (SceneCamera, 0.1f, 0.1f);
 		_main = new Layer (SceneCamera);
 		
 		_physics = new PhysicsScene();
@@ -40,12 +40,11 @@ public class MainScene : Scene
 		_player = new PhysicalSpriteUV (new TextureInfo ("/Application/assets/circle.png"), _physics, true);
 		_player.Position = Camera.CalcBounds().Center;
 		_player.PositionAll = SceneCamera.CalcBounds().Center;
-
+	
 		
 		_block = new PhysicalSpriteUV(new TextureInfo("/Application/assets/floor.png"), _physics);
 		_block.PositionAll = new Vector2(SceneCamera.CalcBounds().Center.X + 10, SceneCamera.CalcBounds().Center.Y - 100);
 		_physics.sceneBodies[_block.BodyIndex].SetBodyStatic();
-		_physics.sceneBodies[_block.BodyIndex].SetBodyKinematic();
 		
 		_physics.restitutionCoeff = 0.9f;
 		_physics.sceneMax = new Vector2(10000, 10000);
@@ -73,7 +72,7 @@ public class MainScene : Scene
 			if(movement != 0.0f)
 			{
 				Console.WriteLine("------MOVING------");
-				_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(100 * movement, _physics.sceneBodies[_player.BodyIndex].Velocity.Y);
+				_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(500 * movement, _physics.sceneBodies[_player.BodyIndex].Velocity.Y);
 			}
 			
 			if(_player.Intersects((uint)_block.BodyIndex))
@@ -87,8 +86,8 @@ public class MainScene : Scene
 			{
 				System.Console.WriteLine("------JUMPING------");
 				_player.RemoveJoint();
-				_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(0, 250);
-				_physics.sceneBodies[_player.BodyIndex].Acceleration = new Vector2(0, 150);
+				_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(0, 500);
+				_physics.sceneBodies[_player.BodyIndex].Acceleration = new Vector2(0, 300);
 			}
 		}
 

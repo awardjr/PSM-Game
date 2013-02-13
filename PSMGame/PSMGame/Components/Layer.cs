@@ -28,7 +28,7 @@ public class Layer : Node
 	public override void Update(float dt)
 	{
 		Position = new Vector2(-this.camera.CalcBounds().Point00.X * (ScrollRateX -1), 
-		                       this.camera.CalcBounds().Point00.Y * (ScrollRateY - 1));
+		                       -this.camera.CalcBounds().Point00.Y * (ScrollRateY - 1));
 	}
 }
 
