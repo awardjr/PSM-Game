@@ -11,6 +11,7 @@ using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
 using Sce.PlayStation.HighLevel.Physics2D;
+using PSM;
 
 public class MainScene : Scene
 {
@@ -62,7 +63,13 @@ public class MainScene : Scene
 		AddChild(_block);
 		AddChild(_main);
 	
+		/* // enemy sprite test code
+		var fish0 = new FishEnemy(new Vector2(30.0f,30.0f));
+		var fish1 = new FishEnemy(new Vector2(15.0f,15.0f));
+		var fish2 = new FishEnemy(new Vector2(100.0f,70.0f));
 		
+		AddChild(FishEnemy.spriteList);
+		*/
 	}
 
 	public override void Update (float dt)
