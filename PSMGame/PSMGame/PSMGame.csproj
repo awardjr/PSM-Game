@@ -46,6 +46,7 @@
     <Compile Include="Components\PhysicalSpriteUV.cs" />
     <Compile Include="Components\Enemies\FishEnemy.cs" />
     <Compile Include="Components\Enemies\Enemy.cs" />
+    <Compile Include="PlayerCreature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -71,7 +72,6 @@
     <Folder Include="Components\Enemies\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\background.jpg" />
     <None Include="Readme.md" />
   </ItemGroup>
 </Project>

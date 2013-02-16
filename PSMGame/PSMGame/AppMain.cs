@@ -70,7 +70,7 @@ static class PSMGame
 		}
 		Director.Terminate();
 
-		System.Console.WriteLine( "Bye!" );
+		//System.Console.WriteLine( "Bye!" );
 	}
 }
 

@@ -31,6 +31,7 @@ namespace PSM
 			
 			spriteList.AddChild(sprite);
 			
+			sprite.GetContentWorldBounds(ref boundingBox);
 			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!
 			sprite.Position = pos;
 		}

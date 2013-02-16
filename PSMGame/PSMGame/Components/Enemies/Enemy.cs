@@ -19,17 +19,18 @@ namespace PSM
 		}
 
 		public SpriteUV sprite; // change type to SpriteTile when we get spritesheet assets
-
+		
+		public Bounds2 boundingBox;
+		
 		public EnemyHabitat enemyHabitat;
 		public EnemyType enemyType;
 		
 		public Enemy ()
 		{
 		}
-		public bool isCollidingWith(SpriteUV otherSprite)
+		public bool isCollidingWith(Bounds2 otherBounds)
 		{
-			// !!!!
-			return false;
+			return boundingBox.Overlaps(otherBounds);
 		}
 		public abstract void UpdateEnemyState();
 		public abstract void Die(); // play death animation
