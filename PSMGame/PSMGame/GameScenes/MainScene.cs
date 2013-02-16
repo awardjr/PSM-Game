@@ -13,7 +13,7 @@ using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 using Sce.PlayStation.HighLevel.Physics2D;
 using PSM;
 
-namespace PSM 
+namespace PSM
 {
 	public class MainScene : Scene
 	{
@@ -28,25 +28,25 @@ namespace PSM
 		private Node _main;
 		private Camera2D SceneCamera;
 		private ArrayList _enemies;
-		private Vector2 _screenSize = new Vector2(960.0f, 544.0f);
+		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
 		
 		public MainScene ()
 		{
 			this.ScheduleUpdate ();
 			
 			SceneCamera = (Camera2D)Camera;
-			SceneCamera.SetViewFromHeightAndCenter(_screenSize.Y, _screenSize / 2.0f);
+			SceneCamera.SetViewFromHeightAndCenter (_screenSize.Y, _screenSize / 2.0f);
 			//_background = new Layer (SceneCamera, 0.1f, 0.1f);
 			//_main = new Layer (SceneCamera);
-			_main = new Node();
+			_main = new Node ();
 			/*
 			_physics = new PhysicsScene();
 			_physics.InitScene();
 			*/
 			
-			_playerCreature = new PlayerCreature();
-			_playerCreature.sprite.Position = Camera.CalcBounds().Center;
-	//		_player.PositionAll = SceneCamera.CalcBounds().Center;
+			_playerCreature = new PlayerCreature ();
+			_playerCreature.sprite.Position = Camera.CalcBounds ().Center;
+			//		_player.PositionAll = SceneCamera.CalcBounds().Center;
 	
 			/*
 			_block = new PhysicalSpriteUV(new TextureInfo("/Application/assets/floor.png"), _physics);
@@ -60,71 +60,70 @@ namespace PSM
 			//AddChild (new SpriteUV(new TextureInfo("/Application/king_water_drop.png")));
 			//_main.AddChild (_player);
 			
-			var background = new SpriteUV(new TextureInfo("/Application/assets/background.png"));
+			var background = new SpriteUV (new TextureInfo ("/Application/assets/background.png"));
 			background.Quad.S = background.TextureInfo.TextureSizef;
-			background.CenterSprite();
+			background.CenterSprite ();
 			//_physics.Gravity = new Vector2(0.0f, -98f);
-			background.Position = SceneCamera.CalcBounds().Center;
+			background.Position = SceneCamera.CalcBounds ().Center;
 			//_background.AddChild(background);     
 			//AddChild(_background);
 			//AddChild(_block);
-			AddChild(_main);
-			_main.AddChild(background);
-		_main.AddChild(_playerCreature.sprite);
+			AddChild (_main);
+			_main.AddChild (background);
+			_main.AddChild (_playerCreature.sprite);
 			
-			_enemies = new ArrayList();
+			_enemies = new ArrayList ();
 			
 			// enemy sprite test code
-			var fish0 = new FishEnemy(new Vector2(30.0f,30.0f),_playerCreature);
-			var fish1 = new FishEnemy(new Vector2(15.0f,15.0f),_playerCreature);
-			var fish2 = new FishEnemy(new Vector2(100.0f,70.0f),_playerCreature);
+			var fish0 = new FishEnemy (new Vector2 (30.0f, 30.0f), _playerCreature);
+			var fish1 = new FishEnemy (new Vector2 (15.0f, 15.0f), _playerCreature);
+			var fish2 = new FishEnemy (new Vector2 (100.0f, 70.0f), _playerCreature);
 			
-			_enemies.Add(fish0);
-			_enemies.Add(fish1);
-			_enemies.Add(fish2);
+			_enemies.Add (fish0);
+			_enemies.Add (fish1);
+			_enemies.Add (fish2);
 						
-			_main.AddChild(FishEnemy.spriteList);
+			_main.AddChild (FishEnemy.spriteList);
 		}
 	
 		public override void Update (float dt)
 		{	
-			_playerCreature.Update(dt);
-			//_playerCreature.sprite.DebugDrawContentLocalBounds();
-			
-			GamePadData gamePadData = GamePad.GetData(0);
+							//System.Console.WriteLine (_playerCreature.sprite.Position.X);
+				//System.Console.WriteLine (_playerCreature.sprite.Position.Y);
+
+			GamePadData gamePadData = GamePad.GetData (0);
 			if (((gamePadData.Buttons & GamePadButtons.Up) != 0) 
-			    && (_playerCreature.sprite.Position.Y < _screenSize.Y-(_playerCreature.spriteSize().Y*2)))
-			{
-				System.Console.WriteLine(_playerCreature.sprite.Position.X);
-								System.Console.WriteLine(_playerCreature.sprite.Position.Y);
-				
-				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X,
-				                                              _playerCreature.sprite.Position.Y+8);
+			    && (_playerCreature.sprite.Position.Y < _screenSize.Y - (_playerCreature.spriteSize ().Y))) 
+			{				
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X,
+				                                              _playerCreature.sprite.Position.Y + 8);
 			}
 			if (((gamePadData.Buttons & GamePadButtons.Down) != 0)
-			    && (_playerCreature.sprite.Position.Y > 0))
+			    && (_playerCreature.sprite.Position.Y > _playerCreature.spriteSize ().Y)) 
 			{
-				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X,
-				                                              _playerCreature.sprite.Position.Y-8);
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X,
+				                                              _playerCreature.sprite.Position.Y - 8);
 			}
 			if (((gamePadData.Buttons & GamePadButtons.Left) != 0)
-				&& (_playerCreature.sprite.Position.X > 0))
+				&& (_playerCreature.sprite.Position.X > _playerCreature.spriteSize().X)) 
 			{
-				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X-6,
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X - 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
 			if (((gamePadData.Buttons & GamePadButtons.Right) != 0)
-				&& (_playerCreature.sprite.Position.X < _screenSize.X-(_playerCreature.spriteSize().X*2)))
+				&& (_playerCreature.sprite.Position.X < _screenSize.X - (_playerCreature.spriteSize ().X))) 
 			{
-				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X+6,
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
 			
-			foreach (Enemy enemy in _enemies)
-			{
-				//enemy.sprite.DebugDrawContentLocalBounds();
-				enemy.UpdateEnemyState();
+			foreach (Enemy enemy in _enemies) {
+				enemy.UpdateEnemyState ();
 			}
+			
+			_playerCreature.Update (dt);
+			//_playerCreature.sprite.DebugDrawContentLocalBounds();
+
 			
 			//SceneCamera.Center = _playerCreature.sprite.Position;
 			

@@ -8,6 +8,7 @@ namespace PSM
 {
 	public class FishEnemy : Enemy
 	{
+		private float speed = 4.0f;
 		private static TextureInfo texInfo = null;
 		public static SpriteList spriteList = null;
 		public PlayerCreature player;
@@ -36,7 +37,7 @@ namespace PSM
 			
 			sprite.GetContentWorldBounds(ref boundingBox);
 			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
-			//sprite.CenterSprite();
+			sprite.CenterSprite();
 			sprite.Position = pos;
 		}
 		
@@ -46,23 +47,27 @@ namespace PSM
 		}
 		
 		public override void UpdateEnemyState()
-		{	
+		{
+			float newX = this.sprite.Position.X;
+			float newY = this.sprite.Position.Y;
+			
 			if (this.sprite.Position.X < player.sprite.Position.X)
 			{
-				this.sprite.Position = new Vector2(this.sprite.Position.X-1,this.sprite.Position.Y);
+				newX += speed;
 			}
 			else if (this.sprite.Position.X > player.sprite.Position.X)
 			{
-				this.sprite.Position = new Vector2(this.sprite.Position.X+1,this.sprite.Position.Y);;
+				newX -= speed;
 			}
 			if (this.sprite.Position.Y < player.sprite.Position.Y)
 			{
-				this.sprite.Position = new Vector2(this.sprite.Position.X,this.sprite.Position.Y+1);
+				newY += speed;
 			}
 			else if (this.sprite.Position.Y > player.sprite.Position.Y)
 			{
-				this.sprite.Position = new Vector2(this.sprite.Position.X,this.sprite.Position.Y-1);
+				newY -= speed;
 			}
+			this.sprite.Position = new Vector2(newX,newY);
 		}
 
 		public override void Die ()

@@ -24,13 +24,13 @@ namespace PSM
 			sprite = new SpriteTile(texInfo);
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 			sprite.Quad.S = texInfo.TextureSizef;
+			sprite.CenterSprite();
 		}
 		
 		public Vector2 spriteSize()
 		{
 			return this.sprite.TextureInfo.TileSizeInPixelsf;
 		}
-
 		
 		public void SetAnimation(string animation)
 		{

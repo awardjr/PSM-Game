@@ -44,7 +44,8 @@ static class PSMGame
 
 		
 		//var scene = new MapTestScene();
-		var scene = new GamePlayScene();
+		//var scene = new GamePlayScene();
+		var scene = new MainScene();
 		// set the camera so that the part of the word we see on screen matches in screen coordinates
 		scene.Camera.SetViewFromViewport();
 
