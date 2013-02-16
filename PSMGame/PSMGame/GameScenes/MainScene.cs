@@ -118,10 +118,28 @@ namespace PSM
 			GamePadData gamePadData = GamePad.GetData(0);
 			if ((gamePadData.Buttons & GamePadButtons.Up) != 0)
 			{
-				_playerCreature.sprite.RunAction(new MoveBy(new Vector2(0.0f,5.0f),0.01f));
-				//_playerCreature.sprite.Position.Y+=5;
+				//_playerCreature.sprite.RunAction(new MoveBy(new Vector2(0.0f,5.0f),0.01f));
+				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X,
+				                                              _playerCreature.sprite.Position.Y+5);
 			}
-			
+			if ((gamePadData.Buttons & GamePadButtons.Down) != 0)
+			{
+				//_playerCreature.sprite.RunAction(new MoveBy(new Vector2(0.0f,5.0f),0.01f));
+				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X,
+				                                              _playerCreature.sprite.Position.Y-5);
+			}
+			if ((gamePadData.Buttons & GamePadButtons.Left) != 0)
+			{
+				//_playerCreature.sprite.RunAction(new MoveBy(new Vector2(0.0f,5.0f),0.01f));
+				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X-5,
+				                                              _playerCreature.sprite.Position.Y);
+			}
+			if ((gamePadData.Buttons & GamePadButtons.Right) != 0)
+			{
+				//_playerCreature.sprite.RunAction(new MoveBy(new Vector2(0.0f,5.0f),0.01f));
+				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X+5,
+				                                              _playerCreature.sprite.Position.Y);
+			}
 			
 			SceneCamera.Center = _playerCreature.sprite.Position;
 			

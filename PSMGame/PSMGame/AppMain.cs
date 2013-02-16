@@ -43,7 +43,8 @@ static class PSMGame
 		Director.Instance.DebugFlags |= DebugFlags.Navigate; 
 
 		
-		var scene = new MapTestScene();
+		//var scene = new MapTestScene();
+		var scene = new MainScene();
 		// set the camera so that the part of the word we see on screen matches in screen coordinates
 		scene.Camera.SetViewFromViewport();
 
