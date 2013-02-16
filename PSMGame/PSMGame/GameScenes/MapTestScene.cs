@@ -34,7 +34,7 @@ namespace PSM
 		//	player = bgm1.CreatePlayer();
 			//player.Play ();
 			SceneCamera = (Camera2D)Camera;
-			var texInfo = new TextureInfo(new Texture2D("/Application/assets/spritesheet.png", false),new Vector2i(2,2), TRS.Quad0_1);
+			var texInfo = new TextureInfo(AssetManager.GetTexture ("spritesheet"),new Vector2i(2,2), TRS.Quad0_1);
 			_ground = new SpriteList(texInfo);
 			
 			 _sprite = new SpriteTile(texInfo);
