@@ -73,6 +73,7 @@
     <Content Include="assets\water.png" />
     <Content Include="assets\background_paper.png" />
     <Content Include="assets\ground_tile.png" />
+    <Content Include="assets\cat.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />

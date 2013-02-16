@@ -16,19 +16,21 @@ public class Layer : Node
  {
 	public float ScrollRateX { get; set; }
 	public float ScrollRateY { get; set; }
-	public Camera2D camera {get; private set;}
+	public Vector2 Offset { get; set;}
+	public Camera2D Camera {get;  set;}
 	
 	public Layer (Camera2D camera, float scrollRateX = 1f, float scrollRateY = 1f) 
 	{
-		this.camera = camera;
+		Offset = new Vector2(0,0);
+		this.Camera = camera;
 		ScrollRateX = scrollRateX ;
 		ScrollRateY = ScrollRateY ;
 	}
 	
 	public override void Update(float dt)
 	{
-		Position = new Vector2(-this.camera.CalcBounds().Point00.X * (ScrollRateX -1), 
-		                       -this.camera.CalcBounds().Point00.Y * (ScrollRateY - 1));
+		Position = new Vector2(-this.Camera.CalcBounds().Point00.X * (ScrollRateX -1) - Offset.X, -this.Camera.CalcBounds().Point00.Y * (ScrollRateY - 1) - Offset.Y);
+		
 		foreach(Node node in Children)
 		{
 			node.Update (dt);	

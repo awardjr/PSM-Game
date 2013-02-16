@@ -20,6 +20,7 @@ namespace PSM
 		private SpriteTile _sprite;
 		private SpriteList _ground;
 		private SpriteTile _water;
+		private PlayerCreature _playerCreature;
 		
 		private Random _random;
 		private int _waterLevel;
@@ -31,6 +32,10 @@ namespace PSM
 		
 		private Layer _backgroundLayer;
 		private Layer _groundLayer;
+		private Layer _mainLayer;
+		
+		private List<Enemy> _enemies;
+		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
 		
 		private Animation animation;
 		public GamePlayScene ()
@@ -45,6 +50,11 @@ namespace PSM
 			
 			SceneCamera.SetViewFromHeightAndCenter(ideal_screen_size.Y, ideal_screen_size / 2.0f);
 			
+			_mainLayer = new Layer(SceneCamera);
+			_playerCreature = new PlayerCreature ();
+			_playerCreature.sprite.Position = Camera.CalcBounds ().Center;
+			_mainLayer.AddChild (_playerCreature.sprite);
+			
 			_backgroundLayer = new Layer(SceneCamera, 0, 0);
 			var background = new SpriteTile(new TextureInfo(AssetManager.GetTexture("background_paper")));
 			_backgroundLayer.AddChild(background);
@@ -52,16 +62,15 @@ namespace PSM
 			background.CenterSprite();
 			background.Position = SceneCamera.CalcBounds().Center;
 			
-			animation = new Animation(0, 3, 0.1f, true);
 			
 			_water = new SpriteTile(new TextureInfo(AssetManager.GetTexture("water")));
 			_water.Quad.S = _water.TextureInfo.TextureSizef;
 			_water.CenterSprite();
-			_water.Position = SceneCamera.CalcBounds().Center + new Vector2(0, -244);
 			_water.BlendMode = BlendMode.Multiplicative;
+			_water.Position = SceneCamera.CalcBounds().Center + new Vector2(0, -244);
 			
 			_groundLayer = new Layer(SceneCamera, 1, 1);
-		
+			
 			var texInfo = new TextureInfo(AssetManager.GetTexture ("ground_tile"));
 			_ground = new SpriteList(texInfo);
 			_sprite = new SpriteTile(texInfo);
@@ -71,7 +80,22 @@ namespace PSM
 			_sprite.CenterSprite();
 			_sprite.TileIndex2D = new Vector2i(0,0);
 			GenerateMap();
+			
+			_groundLayer.Offset = new Vector2(0, 120);
+			
+			_enemies = new List<Enemy>();
+			
+			// enemy sprite test code
+			var fish0 = new FishEnemy (new Vector2 (30.0f, 30.0f), _playerCreature);
+			var fish1 = new FishEnemy (new Vector2 (15.0f, 15.0f), _playerCreature);
+			var fish2 = new FishEnemy (new Vector2 (100.0f, 70.0f), _playerCreature);
+			
+			_enemies.Add (fish0);
+			_enemies.Add (fish1);
+			_enemies.Add (fish2);
+			_mainLayer.AddChild (FishEnemy.spriteList);
 			AddChild (_backgroundLayer);
+			AddChild (_mainLayer);
 			AddChild(_groundLayer);
 			AddChild(_water);
 		}
@@ -89,17 +113,39 @@ namespace PSM
 		}
 		public override void Update (float dt)
 		{
-			animation.Update(dt);
 			
-		//	_sprite.TileIndex1D = animation.CurrentFrame;
-			
-			if (Input2.GamePad0.Left.Down)
+			GamePadData gamePadData = GamePad.GetData (0);
+			if (((gamePadData.Buttons & GamePadButtons.Up) != 0) 
+			    && (_playerCreature.sprite.Position.Y < _screenSize.Y - (_playerCreature.spriteSize ().Y))) 
+			{				
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X,
+				                                              _playerCreature.sprite.Position.Y + 8);
+			}
+			if (((gamePadData.Buttons & GamePadButtons.Down) != 0)
+			    && (_playerCreature.sprite.Position.Y > _playerCreature.spriteSize ().Y)) 
 			{
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X,
+				                                              _playerCreature.sprite.Position.Y - 8);
+			}
+			if (((gamePadData.Buttons & GamePadButtons.Left) != 0)
+				&& (_playerCreature.sprite.Position.X > _playerCreature.spriteSize().X)) 
+			{
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X - 6,
+				                                              _playerCreature.sprite.Position.Y);
+			}
+			if (((gamePadData.Buttons & GamePadButtons.Right) != 0)
+				&& (_playerCreature.sprite.Position.X < _screenSize.X - (_playerCreature.spriteSize ().X))) 
+			{
+				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
+				                                              _playerCreature.sprite.Position.Y);
 			}
 			
-			if (Input2.GamePad0.Right.Down)
-			{
+			foreach (Enemy enemy in _enemies) {
+				enemy.UpdateEnemyState ();
 			}
+			
+			_playerCreature.Update (dt);
+			
 			_backgroundLayer.Update(dt);
 			_groundLayer.Update (dt);
 			base.Update (dt);
