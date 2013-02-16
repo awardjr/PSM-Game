@@ -47,6 +47,7 @@
     <Compile Include="Components\Enemies\FishEnemy.cs" />
     <Compile Include="Components\Enemies\Enemy.cs" />
     <Compile Include="PlayerCreature.cs" />
+    <Compile Include="GameScenes\MapTestScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
