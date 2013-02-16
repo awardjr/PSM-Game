@@ -65,6 +65,7 @@
     <Content Include="assets\circle.png" />
     <Content Include="assets\bird.png" />
     <Content Include="assets\fish.png" />
+    <Content Include="assets\spritesheet.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />

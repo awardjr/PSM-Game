@@ -18,6 +18,8 @@ using Sce.PlayStation.Core.Environment;
 using Sce.PlayStation.HighLevel.GameEngine2D;
 using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
+using PSM;
+
 static class PSMGame
 {
 	static void Main( string[] args )
@@ -41,7 +43,7 @@ static class PSMGame
 		Director.Instance.DebugFlags |= DebugFlags.Navigate; 
 
 		
-		var scene = new MainScene();
+		var scene = new MapTestScene();
 		// set the camera so that the part of the word we see on screen matches in screen coordinates
 		scene.Camera.SetViewFromViewport();
 
