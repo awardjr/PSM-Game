@@ -10,14 +10,16 @@ namespace PSM
 	{
 		private static TextureInfo texInfo = null;
 		public static SpriteList spriteList = null;
-
+		public PlayerCreature player;
+		
 		private FishEnemy (){}
 
-		public FishEnemy (Vector2 pos)
+		public FishEnemy (Vector2 pos, PlayerCreature player)
 		{
 			enemyHabitat = Enemy.EnemyHabitat.ENEMY_HABITAT_SEA;
 			enemyType = Enemy.EnemyType.ENEMY_TYPE_FISH;
 			sprite = new SpriteUV();
+			this.player = player;
 			
 			if (texInfo == null)
 			{
@@ -32,12 +34,32 @@ namespace PSM
 			spriteList.AddChild(sprite);
 			
 			sprite.GetContentWorldBounds(ref boundingBox);
-			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!
+			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
+			sprite.CenterSprite();
 			sprite.Position = pos;
 		}
 
-		public override void UpdateEnemyState ()
+		public override void UpdateEnemyState()
 		{
+			System.Console.WriteLine(player.sprite.Position.X);
+						System.Console.WriteLine(player.sprite.Position.Y);
+				
+			if (this.sprite.Position.X < player.sprite.Position.X)
+			{
+				this.sprite.Position = new Vector2(this.sprite.Position.X+1,this.sprite.Position.Y);
+			}
+			else if (this.sprite.Position.X > player.sprite.Position.X)
+			{
+				this.sprite.Position = new Vector2(this.sprite.Position.X-1,this.sprite.Position.Y);;
+			}
+			if (this.sprite.Position.Y < player.sprite.Position.Y)
+			{
+				this.sprite.Position = new Vector2(this.sprite.Position.X,this.sprite.Position.Y+1);
+			}
+			else if (this.sprite.Position.Y > player.sprite.Position.Y)
+			{
+				this.sprite.Position = new Vector2(this.sprite.Position.X,this.sprite.Position.Y-1);
+			}
 		}
 
 		public override void Die ()

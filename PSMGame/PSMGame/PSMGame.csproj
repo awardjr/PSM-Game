@@ -70,6 +70,8 @@
     <Content Include="assets\fish.png" />
     <Content Include="assets\spritesheet.png" />
     <Content Include="assets\water.png" />
+    <Content Include="assets\Background_Paper.png" />
+    <Content Include="assets\Ground_Tile.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />

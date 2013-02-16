@@ -27,7 +27,8 @@ namespace PSM
 		//private Layer _main;
 		private Node _main;
 		private Camera2D SceneCamera;
-			
+		private ArrayList _enemies;
+		
 		public MainScene ()
 		{
 			this.ScheduleUpdate ();
@@ -70,11 +71,17 @@ namespace PSM
 			AddChild(_main);
 			_main.AddChild(background);
 		_main.AddChild(_playerCreature.sprite);
-			 
+			
+			_enemies = new ArrayList();
+			
 			// enemy sprite test code
-			var fish0 = new FishEnemy(new Vector2(30.0f,30.0f));
-			var fish1 = new FishEnemy(new Vector2(15.0f,15.0f));
-			var fish2 = new FishEnemy(new Vector2(100.0f,70.0f));
+			var fish0 = new FishEnemy(new Vector2(30.0f,30.0f),_playerCreature);
+			var fish1 = new FishEnemy(new Vector2(15.0f,15.0f),_playerCreature);
+			var fish2 = new FishEnemy(new Vector2(100.0f,70.0f),_playerCreature);
+			
+			_enemies.Add(fish0);
+			_enemies.Add(fish1);
+			_enemies.Add(fish2);
 			
 			background.AddChild(FishEnemy.spriteList);
 		}
@@ -111,7 +118,7 @@ namespace PSM
 	        Vector2 dummy2 = new Vector2();
 			_physics.Simulate(-1,ref dummy1,ref dummy2);
 			*/
-			_playerCreature.Update(dt);
+			//_playerCreature.Update(dt);
 			
 			//_block.Update (dt);
 	
@@ -135,6 +142,11 @@ namespace PSM
 			{
 				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X+6,
 				                                              _playerCreature.sprite.Position.Y);
+			}
+			
+			foreach (Enemy enemy in _enemies)
+			{
+				enemy.UpdateEnemyState();
 			}
 			
 			//SceneCamera.Center = _playerCreature.sprite.Position;
