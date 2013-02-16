@@ -15,7 +15,7 @@ using Sce.PlayStation.HighLevel.Physics2D;
 
 namespace PSM
 {
-	public class MapTestScene : Scene
+	public class GamePlayScene : Scene
 	{
 		private SpriteTile _sprite;
 		private SpriteList _ground;
@@ -26,17 +26,13 @@ namespace PSM
 		public BgmPlayer player;
 		
 		private Animation animation;
-		public MapTestScene ()
+		public GamePlayScene ()
 		{
 			this.ScheduleUpdate ();
 		
 			animation = new Animation(0, 3, 0.1f, true);
 			
 			_random = new Random();
-		//	bgm1 = new Bgm("/Application/assets/music1.mp3");
-			//bgm2 = new Bgm("/Application/assets/root.mp3");
-		//	player = bgm1.CreatePlayer();
-			//player.Play ();
 			SceneCamera = (Camera2D)Camera;
 			var texInfo = new TextureInfo(AssetManager.GetTexture ("spritesheet"),new Vector2i(2,2), TRS.Quad0_1);
 			_ground = new SpriteList(texInfo);
@@ -74,9 +70,6 @@ namespace PSM
 			
 			if (Input2.GamePad0.Right.Down)
 			{
-			//	player.Dispose();
-				//player = bgm2.CreatePlayer();
-			//	player.Play();
 			}
 			SceneCamera.Center = _sprite.Position;
 			base.Update (dt);

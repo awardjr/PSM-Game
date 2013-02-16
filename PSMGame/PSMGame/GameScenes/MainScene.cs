@@ -111,7 +111,7 @@ namespace PSM
 	        Vector2 dummy2 = new Vector2();
 			_physics.Simulate(-1,ref dummy1,ref dummy2);
 			*/
-			//_playerCreature.Update(dt);
+			_playerCreature.Update(dt);
 			
 			//_block.Update (dt);
 	
