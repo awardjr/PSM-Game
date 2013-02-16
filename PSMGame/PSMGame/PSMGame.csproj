@@ -49,7 +49,11 @@
     <Compile Include="GameScenes\MapTestScene.cs" />
     <Compile Include="Components\AssetManager.cs" />
     <Compile Include="Components\Animation.cs" />
+<<<<<<< OURS
     <Compile Include="Components\PlayerCreature.cs" />
+=======
+    <Compile Include="GameScenes\GamePlayScene.cs" />
+>>>>>>> THEIRS
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -68,12 +72,14 @@
     <Content Include="assets\bird.png" />
     <Content Include="assets\fish.png" />
     <Content Include="assets\spritesheet.png" />
+    <Content Include="assets\water.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />
     <Folder Include="assets\" />
     <Folder Include="Components\" />
     <Folder Include="Components\Enemies\" />
+    <Folder Include="assets\audio\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />

@@ -7,7 +7,6 @@ namespace PSM
 	public class Animation
 	{
 		private float _currentFrame;
-		private Stopwatch _timer; 
 		
 		public bool IsPlaying { get; private set;}
 		public int FirstFrame { get; private set;}
@@ -15,9 +14,7 @@ namespace PSM
 		public int NumFrames 
 		{ 
 			get {return LastFrame - FirstFrame;	}
-			private set {
-				
-			}
+			private set {}
 		}
 		
 		public int CurrentFrame 
@@ -55,6 +52,7 @@ namespace PSM
 		{
 			IsPlaying = false;	
 		}
+		
 		public void Update (float dt)
 		{
 			var frames = dt/Rate;
