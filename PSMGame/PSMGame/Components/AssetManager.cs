@@ -25,6 +25,7 @@ namespace PSM
 		{
 			if(!Textures.ContainsKey(texture))
 			{
+				
 				Textures.Add ( texture, new Texture2D(assetPath + texture + ".png", false));
 			} 
 			return Textures[texture];
