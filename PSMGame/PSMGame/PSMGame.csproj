@@ -46,10 +46,10 @@
     <Compile Include="Components\PhysicalSpriteUV.cs" />
     <Compile Include="Components\Enemies\FishEnemy.cs" />
     <Compile Include="Components\Enemies\Enemy.cs" />
-    <Compile Include="PlayerCreature.cs" />
     <Compile Include="GameScenes\MapTestScene.cs" />
     <Compile Include="Components\AssetManager.cs" />
     <Compile Include="Components\Animation.cs" />
+    <Compile Include="Components\PlayerCreature.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
