@@ -24,10 +24,14 @@ namespace PSM
    		public Bgm bgm1;
 		public Bgm bgm2;
 		public BgmPlayer player;
+		
+		private Animation animation;
 		public MapTestScene ()
 		{
 			this.ScheduleUpdate ();
 		
+			animation = new Animation(0, 3, 0.1f, true);
+			
 			_random = new Random();
 		//	bgm1 = new Bgm("/Application/assets/music1.mp3");
 			//bgm2 = new Bgm("/Application/assets/root.mp3");
@@ -36,7 +40,6 @@ namespace PSM
 			SceneCamera = (Camera2D)Camera;
 			var texInfo = new TextureInfo(AssetManager.GetTexture ("spritesheet"),new Vector2i(2,2), TRS.Quad0_1);
 			_ground = new SpriteList(texInfo);
-			
 			 _sprite = new SpriteTile(texInfo);
 			
 			_ground.AddChild(_sprite);
@@ -44,7 +47,7 @@ namespace PSM
 
 		_sprite.CenterSprite();
 			_sprite.TileIndex2D = new Vector2i(0,0);
-			GenerateMap();
+		//	GenerateMap();
 			AddChild(_ground);
 		}
 		
@@ -61,11 +64,9 @@ namespace PSM
 		}
 		public override void Update (float dt)
 		{
-			_sprite.TileIndex1D +=1;
-			if(_sprite.TileIndex1D > 3)
-			{
-				_sprite.TileIndex1D = 0;
-			}
+			animation.Update(dt);
+			
+			_sprite.TileIndex1D =animation.CurrentFrame;
 			
 			if (Input2.GamePad0.Left.Down)
 			{
@@ -80,7 +81,7 @@ namespace PSM
 				//player = bgm2.CreatePlayer();
 			//	player.Play();
 			}
-		//	SceneCamera.Center = _sprite.Position;
+			SceneCamera.Center = _sprite.Position;
 			base.Update (dt);
 		}
 	}
