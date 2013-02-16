@@ -44,6 +44,8 @@
     <Compile Include="Components\Layer.cs" />
     <Compile Include="Components\PlayerInput.cs" />
     <Compile Include="Components\PhysicalSpriteUV.cs" />
+    <Compile Include="Components\Enemies\FishEnemy.cs" />
+    <Compile Include="Components\Enemies\Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -59,11 +61,14 @@
     <Content Include="assets\background.png" />
     <Content Include="assets\floor.png" />
     <Content Include="assets\circle.png" />
+    <Content Include="assets\bird.png" />
+    <Content Include="assets\fish.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />
     <Folder Include="assets\" />
     <Folder Include="Components\" />
+    <Folder Include="Components\Enemies\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\background.jpg" />
