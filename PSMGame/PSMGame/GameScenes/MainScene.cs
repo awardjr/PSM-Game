@@ -28,14 +28,14 @@ namespace PSM
 		private Node _main;
 		private Camera2D SceneCamera;
 		private ArrayList _enemies;
+		private Vector2 _screenSize = new Vector2(960.0f, 544.0f);
 		
 		public MainScene ()
 		{
 			this.ScheduleUpdate ();
-			Vector2 ideal_screen_size = new Vector2(960.0f, 544.0f);
 			
 			SceneCamera = (Camera2D)Camera;
-			SceneCamera.SetViewFromHeightAndCenter(ideal_screen_size.Y, ideal_screen_size / 2.0f);
+			SceneCamera.SetViewFromHeightAndCenter(_screenSize.Y, _screenSize / 2.0f);
 			//_background = new Layer (SceneCamera, 0.1f, 0.1f);
 			//_main = new Layer (SceneCamera);
 			_main = new Node();
@@ -82,63 +82,39 @@ namespace PSM
 			_enemies.Add(fish0);
 			_enemies.Add(fish1);
 			_enemies.Add(fish2);
-			
-			background.AddChild(FishEnemy.spriteList);
+						
+			_main.AddChild(FishEnemy.spriteList);
 		}
 	
 		public override void Update (float dt)
-		{
-			/*
-			if(!_player.Joined){
-				float movement = PlayerInput.LeftRightAxis();
-				if(movement != 0.0f)
-				{
-					Console.WriteLine("------MOVING------");
-					//_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(500 * movement, _physics.sceneBodies[_player.BodyIndex].Velocity.Y);
-				}
-				
-				if(_player.Intersects((uint)_block.BodyIndex))
-				{
-					_player.AddJoint((uint)_block.BodyIndex);
-				}
-			}
-			else
-			{
-				if(PlayerInput.JumpButton())
-				{
-					System.Console.WriteLine("------JUMPING------");
-					_player.RemoveJoint();
-					_physics.sceneBodies[_player.BodyIndex].Velocity = new Vector2(0, 500);
-					_physics.sceneBodies[_player.BodyIndex].Acceleration = new Vector2(0, 300);
-				}
-			}
-	
+		{	
+			_playerCreature.Update(dt);
+			//_playerCreature.sprite.DebugDrawContentLocalBounds();
 			
-			Vector2 dummy1 = new Vector2();
-	        Vector2 dummy2 = new Vector2();
-			_physics.Simulate(-1,ref dummy1,ref dummy2);
-			*/
-			//_playerCreature.Update(dt);
-			
-			//_block.Update (dt);
-	
 			GamePadData gamePadData = GamePad.GetData(0);
-			if ((gamePadData.Buttons & GamePadButtons.Up) != 0)
+			if (((gamePadData.Buttons & GamePadButtons.Up) != 0) 
+			    && (_playerCreature.sprite.Position.Y < _screenSize.Y-(_playerCreature.spriteSize().Y*2)))
 			{
+				System.Console.WriteLine(_playerCreature.sprite.Position.X);
+								System.Console.WriteLine(_playerCreature.sprite.Position.Y);
+				
 				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X,
 				                                              _playerCreature.sprite.Position.Y+8);
 			}
-			if ((gamePadData.Buttons & GamePadButtons.Down) != 0)
+			if (((gamePadData.Buttons & GamePadButtons.Down) != 0)
+			    && (_playerCreature.sprite.Position.Y > 0))
 			{
 				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X,
 				                                              _playerCreature.sprite.Position.Y-8);
 			}
-			if ((gamePadData.Buttons & GamePadButtons.Left) != 0)
+			if (((gamePadData.Buttons & GamePadButtons.Left) != 0)
+				&& (_playerCreature.sprite.Position.X > 0))
 			{
 				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X-6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
-			if ((gamePadData.Buttons & GamePadButtons.Right) != 0)
+			if (((gamePadData.Buttons & GamePadButtons.Right) != 0)
+				&& (_playerCreature.sprite.Position.X < _screenSize.X-(_playerCreature.spriteSize().X*2)))
 			{
 				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X+6,
 				                                              _playerCreature.sprite.Position.Y);
@@ -146,6 +122,7 @@ namespace PSM
 			
 			foreach (Enemy enemy in _enemies)
 			{
+				//enemy.sprite.DebugDrawContentLocalBounds();
 				enemy.UpdateEnemyState();
 			}
 			

@@ -25,7 +25,13 @@ namespace PSM
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 			sprite.Quad.S = texInfo.TextureSizef;
 		}
+		
+		public Vector2 spriteSize()
+		{
+			return this.sprite.TextureInfo.TileSizeInPixelsf;
+		}
 
+		
 		public void SetAnimation(string animation)
 		{
 			CurrentAnimation = Animations[animation];	

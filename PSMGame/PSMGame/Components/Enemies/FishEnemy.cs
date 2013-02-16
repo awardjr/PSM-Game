@@ -31,26 +31,29 @@ namespace PSM
 				spriteList = new SpriteList(texInfo);
 			}
 			
+			spriteList.Position = new Vector2(0.0f,0.0f);
 			spriteList.AddChild(sprite);
 			
 			sprite.GetContentWorldBounds(ref boundingBox);
 			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
-			sprite.CenterSprite();
+			//sprite.CenterSprite();
 			sprite.Position = pos;
 		}
-
-		public override void UpdateEnemyState()
+		
+		public Vector2 spriteSize()
 		{
-			System.Console.WriteLine(player.sprite.Position.X);
-						System.Console.WriteLine(player.sprite.Position.Y);
-				
+			return FishEnemy.spriteList.TextureInfo.TileSizeInPixelsf;
+		}
+		
+		public override void UpdateEnemyState()
+		{	
 			if (this.sprite.Position.X < player.sprite.Position.X)
 			{
-				this.sprite.Position = new Vector2(this.sprite.Position.X+1,this.sprite.Position.Y);
+				this.sprite.Position = new Vector2(this.sprite.Position.X-1,this.sprite.Position.Y);
 			}
 			else if (this.sprite.Position.X > player.sprite.Position.X)
 			{
-				this.sprite.Position = new Vector2(this.sprite.Position.X-1,this.sprite.Position.Y);;
+				this.sprite.Position = new Vector2(this.sprite.Position.X+1,this.sprite.Position.Y);;
 			}
 			if (this.sprite.Position.Y < player.sprite.Position.Y)
 			{
