@@ -49,11 +49,8 @@
     <Compile Include="GameScenes\MapTestScene.cs" />
     <Compile Include="Components\AssetManager.cs" />
     <Compile Include="Components\Animation.cs" />
-<<<<<<< OURS
     <Compile Include="Components\PlayerCreature.cs" />
-=======
     <Compile Include="GameScenes\GamePlayScene.cs" />
->>>>>>> THEIRS
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
