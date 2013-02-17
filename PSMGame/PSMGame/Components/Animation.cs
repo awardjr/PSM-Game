@@ -53,7 +53,12 @@ namespace PSM
 		
 		public void Update (float dt)
 		{
+			if(! IsPlaying)
+			{
+				return;	
+			}
 			var frames = dt/Rate;
+		
 			_currentFrame += frames;
 			
 			if(_currentFrame > LastFrame)

@@ -95,6 +95,8 @@
     <Content Include="assets\water.png" />
     <Content Include="assets\catanimation.png" />
     <Content Include="assets\bubble.png" />
+    <Content Include="assets\audio\endscreen.mp3" />
+    <Content Include="assets\audio\gameplaymusic.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />

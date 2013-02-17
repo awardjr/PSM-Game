@@ -39,8 +39,8 @@ namespace PSM
 			var  gamePadData = GamePad.GetData(0);
 			if((gamePadData.Buttons & GamePadButtons.Start) != 0)
 			{
-				_musicPlayer.Stop();
-				Director.Instance.ReplaceScene( new TransitionSolidFade( new GamePlayScene() )
+				_musicPlayer.Dispose();
+				Director.Instance.ReplaceScene( new TransitionSolidFade( new EndScene() )
                     { Duration = 1.0f, Tween = (x) => Math.PowEaseOut( x, 3.0f )} );
 			}
 		}
