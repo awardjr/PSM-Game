@@ -53,7 +53,7 @@ namespace PSM
 			if (this.isJumping)
 			{
 				float newX = this.sprite.Position.X;
-				float newY = _waterLevel + 250-(_jumpOffset*_jumpOffset);//this.sprite.Position.Y;
+				float newY = _waterLevel + 150-(_jumpOffset*_jumpOffset);//this.sprite.Position.Y;
 				
 				_jumpOffset++;
 				if (newY < _waterLevel)
