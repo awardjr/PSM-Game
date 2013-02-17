@@ -94,6 +94,7 @@ namespace PSM
 
 		public override void Die ()
 		{
+			this.sprite.Position = new Vector2(-200,-200);
 			Cleanup ();
 		}
 		

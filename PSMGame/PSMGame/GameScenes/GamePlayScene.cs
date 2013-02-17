@@ -185,7 +185,6 @@ namespace PSM
 			
 			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0) && (Bullet.cooldown <= 0))
 			{
-				System.Console.WriteLine("Pew!");
 				Bullet bull = new Bullet(_playerCreature.sprite.Position);
 				_bullets.Add(bull);
 				Bullet.cooldown += 20;
@@ -195,6 +194,37 @@ namespace PSM
 				enemy.UpdateEnemyState ();
 			}
 			*/
+			
+			List<Enemy> enemiescopy = new List<Enemy>(_enemies);
+			foreach (Enemy enemy in enemiescopy)
+			{
+				if (enemy.sprite.Visible == false)
+				{
+					_enemies.Remove(enemy);
+				}
+			}
+			List<Bullet> bulletscopy = new List<Bullet>(_bullets);
+			foreach (Bullet bullet in bulletscopy)
+			{
+				if (bullet.sprite.Visible == false)
+				{
+					_bullets.Remove(bullet);
+				}
+			}
+			foreach (Bullet bullet in _bullets)
+			{
+				
+				foreach (Enemy enemy in _enemies)
+					{
+						if (enemy.isCollidingWith(bullet.boundingBox))
+						{
+							System.Console.WriteLine("Death!");
+							enemy.Die();
+							bullet.Die();
+						}
+					}
+				
+			}
 			
 			if(_garnishTimer.Seconds() >=  _garnishDelay )
 			{

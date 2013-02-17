@@ -14,7 +14,11 @@ namespace PSM
 		private static TextureInfo texInfo = null;
 		public static SpriteList spriteList = null;
 		
+		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
+		
 		public static int cooldown = 0;
+		
+		public Bounds2 boundingBox;
 		
 		public Bullet (Vector2 pos)
 		{
@@ -36,14 +40,27 @@ namespace PSM
 			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
 			sprite.RunAction(new ScaleTo(new Vector2(0.15f,0.15f),0.0f));
 			
-			sprite.CenterSprite();
+			sprite.GetContentWorldBounds(ref boundingBox);
+			boundingBox = new Bounds2(pos, new Vector2(38,38));
+			//sprite.CenterSprite();
 			sprite.Position = pos;
 			sprite.Schedule((dt) => Update());
+			
 		}
 		
 		public void Update()
 		{
 			sprite.Position += new Vector2(_speed,0);
+			if (sprite.Position.X > _screenSize.X)
+			{
+				this.Die();
+			}
+		}
+		
+		public void Die()
+		{
+			sprite.UnscheduleAll();
+			sprite.Visible = false;
 		}
 	}
 }
