@@ -51,6 +51,10 @@
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\PlayerCreature.cs" />
     <Compile Include="GameScenes\GamePlayScene.cs" />
+    <Compile Include="Components\Events\EventManager.cs" />
+    <Compile Include="Components\Events\Event.cs" />
+    <Compile Include="Components\Events\EnemySpawnEvent.cs" />
+    <Compile Include="Components\Events\EnvironmentEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -79,6 +83,7 @@
     <Folder Include="Components\" />
     <Folder Include="Components\Enemies\" />
     <Folder Include="assets\audio\" />
+    <Folder Include="Components\Events\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />
