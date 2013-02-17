@@ -97,16 +97,10 @@ namespace PSM
 			_sprite.TileIndex2D = new Vector2i(0,0);
 			
 			GenerateMap();
-			/*
-			_enemies = new List<Enemy>();
-			
-=======
-			GenerateMap();
-			
+				
 			_enemies = new List<Enemy>();
 			_bullets = new List<Bullet>();
 			/*
->>>>>>> shooty shooty bullets whee
 			// enemy sprite test code
 			var fish0 = new FishEnemy (new Vector2 (30.0f, 30.0f), _playerCreature);
 			var fish1 = new FishEnemy (new Vector2 (15.0f, 15.0f), _playerCreature);
@@ -119,10 +113,7 @@ namespace PSM
 			var dummyFish = new FishEnemy (new Vector2 (-25.0f, -25.0f), _playerCreature);
 			dummyFish.sprite.UnscheduleAll();
 			_mainLayer.AddChild (FishEnemy.spriteList);
-			
-			//dummyFish.sprite.Visible = false;
-			_mainLayer.AddChild (FishEnemy.spriteList);
-			
+						
 			var dummyBullet = new Bullet(new Vector2(-25.0f,-25.0f));
 			dummyBullet.sprite.UnscheduleAll();
 			//dummyBullet.sprite.Visible = false;

@@ -34,6 +34,7 @@ namespace PSM
 			
 			spriteList.AddChild(sprite);
 			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
+			sprite.RunAction(new ScaleTo(new Vector2(0.15f,0.15f),0.0f));
 			
 			sprite.CenterSprite();
 			sprite.Position = pos;
