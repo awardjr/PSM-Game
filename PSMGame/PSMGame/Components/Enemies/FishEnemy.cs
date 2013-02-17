@@ -49,7 +49,7 @@ namespace PSM
 			CurrentAnimation.Play();
 			
 			sprite.GetContentWorldBounds(ref boundingBox);
-			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
+			sprite.Quad.S = new Vector2(321, 270);// map 1:1 on screen -- necessary? !!!\
 			sprite.CenterSprite();
 			sprite.Position = pos;
 			sprite.Schedule((dt) => UpdateEnemyState(dt));
@@ -81,7 +81,15 @@ namespace PSM
 			{
 				newY -= speed;
 			}
+			sprite.DebugDrawContentLocalBounds();
+			sprite.DebugInfo();
 			this.sprite.Position = new Vector2(newX,newY);
+			boundingBox = new Bounds2(sprite.LocalToWorld( new Vector2(sprite.Position.X - 258/2, sprite.Position.Y  - 214/2)), sprite.LocalToWorld(new Vector2(sprite.Position.X + 258/2, sprite.Position.Y + 214/2)));
+			
+			if(isCollidingWith(player.BoundingBox))
+			{
+				Die ();	
+			}
 		}
 
 		public override void Die ()
@@ -93,6 +101,7 @@ namespace PSM
 		public override void Cleanup ()
 		{
 			this.sprite.UnscheduleAll();
+			this.sprite.Visible = false;
 			/*
 			if (texInfo != null) 
 			{

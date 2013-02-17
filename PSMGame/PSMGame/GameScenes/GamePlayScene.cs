@@ -95,11 +95,18 @@ namespace PSM
 			_sprite.Quad.S = texInfo.TextureSizef; 
 			_sprite.CenterSprite();
 			_sprite.TileIndex2D = new Vector2i(0,0);
+			
+			GenerateMap();
+			/*
+			_enemies = new List<Enemy>();
+			
+=======
 			GenerateMap();
 			
 			_enemies = new List<Enemy>();
 			_bullets = new List<Bullet>();
 			/*
+>>>>>>> shooty shooty bullets whee
 			// enemy sprite test code
 			var fish0 = new FishEnemy (new Vector2 (30.0f, 30.0f), _playerCreature);
 			var fish1 = new FishEnemy (new Vector2 (15.0f, 15.0f), _playerCreature);
@@ -111,6 +118,8 @@ namespace PSM
 			*/
 			var dummyFish = new FishEnemy (new Vector2 (-25.0f, -25.0f), _playerCreature);
 			dummyFish.sprite.UnscheduleAll();
+			_mainLayer.AddChild (FishEnemy.spriteList);
+			
 			//dummyFish.sprite.Visible = false;
 			_mainLayer.AddChild (FishEnemy.spriteList);
 			
@@ -179,13 +188,7 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
-			/*
-			if (((gamePadData.Buttons & GamePadButtons.Square) != 0)
-			    && (_playerCreature.isJumping == false))
-			{
-				_playerCreature.isJumping = true;
-			}
-			*/
+
 			if (Bullet.cooldown > 0)
 				Bullet.cooldown--;
 			
@@ -201,6 +204,7 @@ namespace PSM
 				enemy.UpdateEnemyState ();
 			}
 			*/
+			
 			if(_garnishTimer.Seconds() >=  _garnishDelay )
 			{
 				_groundLevel -= 20;
