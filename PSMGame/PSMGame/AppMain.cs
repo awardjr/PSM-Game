@@ -45,13 +45,13 @@ static class PSMGame
 		
 		//var scene = new MapTestScene();
 		//var scene = new GamePlayScene();
-		var scene = new GamePlayScene();
+		var scene = new TitleScene();
 		// set the camera so that the part of the word we see on screen matches in screen coordinates
 		scene.Camera.SetViewFromViewport();
 
 		Director.Instance.RunWithScene( scene, true );
 		
-		while ( !PlayerInput.StartButton() )
+		while (true )
 		{
 			Sce.PlayStation.Core.Environment.SystemEvents.CheckEvents();
 

@@ -25,7 +25,6 @@ namespace PSM
 		{
 			if(!Textures.ContainsKey(texture))
 			{
-				
 				Textures.Add ( texture, new Texture2D(assetPath + texture + ".png", false));
 			} 
 			return Textures[texture];
@@ -35,7 +34,7 @@ namespace PSM
 		{
 			if(!Music.ContainsKey(bgm))
 			{
-				Music.Add (bgm, new Bgm(assetPath + "/audio/" + bgm + ".mp3"));
+				Music.Add (bgm, new Bgm(assetPath + "audio/" + bgm + ".mp3"));
 			}
 			return Music[bgm];
 		}
@@ -44,7 +43,7 @@ namespace PSM
 		{
 			if(!Sounds.ContainsKey(sound))
 			{
-				Sounds.Add(sound, new Sound(assetPath + "/audio/" + sound + ".wav"));
+				Sounds.Add(sound, new Sound(assetPath + "audio/" + sound + ".wav"));
 			}
 			return Sounds[sound];
 		}

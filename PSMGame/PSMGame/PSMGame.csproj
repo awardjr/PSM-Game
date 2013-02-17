@@ -57,6 +57,7 @@
     <Compile Include="Components\Events\EnvironmentEvent.cs" />
     <Compile Include="Components\Events\Event.cs" />
     <Compile Include="Components\Events\EventManager.cs" />
+    <Compile Include="GameScenes\TitleScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -88,6 +89,8 @@
     <Content Include="assets\waveline.png" />
     <Content Include="assets\seasponge_yellow.png" />
     <Content Include="assets\Title_Screen.png" />
+    <Content Include="assets\titlescreen.png" />
+    <Content Include="assets\audio\title.mp3" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />
