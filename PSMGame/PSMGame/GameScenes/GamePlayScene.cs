@@ -299,6 +299,7 @@ namespace PSM
 		private int _waterLevel;
 		private int _groundLevel;
 		
+		private bool _end;
 		public Camera2D SceneCamera;
    		public Bgm bgm1;
 		public Bgm bgm2;
@@ -312,6 +313,7 @@ namespace PSM
 		private Timer _garnishTimer;
 		private WaterTile _waterTop;
 		private int _garnishDelay;
+		private Timer _groundTimer;
 		
 		private EventManager _eventManager;
 		
@@ -323,7 +325,9 @@ namespace PSM
 		{
 			
 			this.ScheduleUpdate ();
+			_end = false;
 			_garnishTimer = new Timer();
+			_groundTimer = new Timer();
 			
 			_waterLevel = 272;
 			_groundLevel = 120;
@@ -398,6 +402,7 @@ namespace PSM
 			_waterLayer.AddChild(_waterTop);
 			
 			_musicPlayer = AssetManager.GetBGM("gameplaymusic").CreatePlayer();
+			_musicPlayer.Loop = true;
 			_musicPlayer.Play();
 			
 			AddChild (_backgroundLayer);
@@ -406,7 +411,7 @@ namespace PSM
 			AddChild(_groundLayer);
 			AddChild(_groundGarnish);
 			AddChild(_waterLayer);
-			
+			_groundTimer.Reset();
 			_eventManager = new EventManager(_mainLayer,_playerCreature);
 		}
 		
@@ -423,6 +428,7 @@ namespace PSM
 		
 		public override void Update (float dt)
 		{
+			
 			GamePadData gamePadData = GamePad.GetData (0);
 			if (((gamePadData.Buttons & GamePadButtons.Up) != 0) 
 			    && (_playerCreature.sprite.Position.Y < _screenSize.Y - (_playerCreature.spriteSize ().Y))) 
@@ -472,10 +478,14 @@ namespace PSM
 				enemy.UpdateEnemyState ();
 			}
 			*/
-			
+			if(_groundTimer.Milliseconds() > 200)
+			{
+				_groundTimer.Reset();
+				_groundLevel -= 1;
+				_groundGarnish.Offset = new Vector2(0, _groundLevel);
+			}
 			if(_garnishTimer.Seconds() >=  _garnishDelay )
 			{
-				_groundLevel -= 20;
 				_garnishDelay = _random.Next (3, 10);
 				var garnish = _random.Next(0, 3);
 				if(garnish == 0)
@@ -494,9 +504,10 @@ namespace PSM
 				_groundGarnish.AddChild(_sprite);
 				_groundGarnish.Offset = new Vector2(0,_groundLevel);
 				_sprite.Quad.S = _sprite.TextureInfo.TextureSizef;
-				_sprite.Position = new Vector2(SceneCamera.CalcBounds().Point10.X +_sprite.TextureInfo.TextureSizei.X, _groundLayer.Position.Y + _groundLevel + 140);	
+				_sprite.Position = new Vector2(SceneCamera.CalcBounds().Point10.X +_sprite.TextureInfo.TextureSizei.X, _groundLayer.Position.Y + _groundLevel + 120);	
 				_garnishTimer.Reset();
 			}
+			
 			
 			if(_playerCreature.sprite.Position.Y < _groundLayer.Position.Y + 140 + 64)
 			{
@@ -504,6 +515,14 @@ namespace PSM
 			}
 			_waterLayer.Offset = new Vector2(0,_waterLevel);
 			_groundLayer.Offset = new Vector2(0, _groundLevel );
+			
+			if(_groundLevel < -140 && !_end)
+			{
+				_end = true;
+				_musicPlayer.Dispose();
+				Director.Instance.ReplaceScene( new TransitionDirectionalFade( new EndScene() )
+                    { Duration = 1.0f, Tween = (x) => Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.PowEaseOut( x, 3.0f )} );
+			}
 			
 			_playerCreature.Update (dt);
 			_backgroundLayer.Update (dt);

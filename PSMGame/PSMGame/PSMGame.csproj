@@ -73,7 +73,6 @@
   <ItemGroup>
     <Content Include="king_water_drop.png" />
     <Content Include="assets\square.png" />
-    <Content Include="assets\background.png" />
     <Content Include="assets\floor.png" />
     <Content Include="assets\circle.png" />
     <Content Include="assets\bird.png" />
@@ -97,6 +96,7 @@
     <Content Include="assets\bubble.png" />
     <Content Include="assets\audio\endscreen.mp3" />
     <Content Include="assets\audio\gameplaymusic.mp3" />
+    <Content Include="assets\kid.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />

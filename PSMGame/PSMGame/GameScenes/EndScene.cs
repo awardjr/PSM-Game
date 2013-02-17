@@ -83,7 +83,7 @@ namespace PSM
 			
 			if(_secondSequence && _waitTimer.Milliseconds() > 15000)
 			{
-				_musicPlayer.Stop ();
+				_waitTimer.Reset();
 				_musicPlayer.Dispose();
 				Director.Instance.ReplaceScene( new TransitionSolidFade( new TitleScene() )
                     { Duration = 2.0f, Tween = (x) => Math.PowEaseOut( x, 3.0f )} );	
