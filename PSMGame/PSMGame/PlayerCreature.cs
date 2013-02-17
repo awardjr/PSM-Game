@@ -12,6 +12,10 @@ namespace PSM
 		private TextureInfo texInfo;
 		public Animation CurrentAnimation;
 		
+		public bool isJumping = false;
+		private int _jumpOffset = 0;
+		private const int _waterLevel = 272;
+		
 		public Dictionary<string, Animation> Animations; 
 		
 		public PlayerCreature ()
@@ -24,6 +28,8 @@ namespace PSM
 			sprite = new SpriteTile(texInfo);
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 			sprite.Quad.S = texInfo.TextureSizef;
+			
+			isJumping = false;
 		}
 		
 		public void SetAnimation(string animation)
@@ -35,6 +41,21 @@ namespace PSM
 		{
 			CurrentAnimation.Update(dt);
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
+			
+			if (this.isJumping)
+			{
+				float newX = this.sprite.Position.X;
+				float newY = _waterLevel + 250-(_jumpOffset*_jumpOffset);//this.sprite.Position.Y;
+				
+				_jumpOffset++;
+				if (newY < _waterLevel)
+				{
+					this.isJumping = false;
+					_jumpOffset = 0;
+				}
+				
+				this.sprite.Position = new Vector2(newX,newY);
+			}
 		}
 	}
 }

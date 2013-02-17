@@ -163,7 +163,12 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
-			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0)
+			if (((gamePadData.Buttons & GamePadButtons.Square) != 0)
+			    && (_playerCreature.isJumping == false))
+			{
+				_playerCreature.isJumping = true;
+			}
+			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0))
 			{
 				
 			}

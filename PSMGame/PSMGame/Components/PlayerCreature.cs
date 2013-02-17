@@ -13,7 +13,12 @@ namespace PSM
 		public Animation CurrentAnimation;
 
 		public Dictionary<string, Animation> Animations; 
-
+		
+		public bool isJumping = false;
+		private int _jumpOffset = 0;
+		private const int _waterLevel = 272;
+		
+		
 		public PlayerCreature ()
 		{
 			Animations = new Dictionary<string, Animation>();
@@ -25,6 +30,9 @@ namespace PSM
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 			sprite.Quad.S = new Vector2(258, 214);
 			sprite.CenterSprite();
+			
+			isJumping = false;
+
 		}
 		
 		public Vector2 spriteSize()
@@ -41,6 +49,22 @@ namespace PSM
 		{
 			CurrentAnimation.Update(dt);
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
+			
+			if (this.isJumping)
+			{
+				float newX = this.sprite.Position.X;
+				float newY = _waterLevel + 250-(_jumpOffset*_jumpOffset);//this.sprite.Position.Y;
+				
+				_jumpOffset++;
+				if (newY < _waterLevel)
+				{
+					this.isJumping = false;
+					_jumpOffset = 0;
+				}
+				
+				this.sprite.Position = new Vector2(newX,newY);
+			}
+
 		}
 	}
 }
