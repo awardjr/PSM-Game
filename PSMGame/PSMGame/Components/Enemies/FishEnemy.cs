@@ -75,18 +75,20 @@ namespace PSM
 
 		public override void Die ()
 		{
+			Cleanup ();
 		}
 		
 		// not thread-safe!
 		public override void Cleanup ()
 		{
 			this.sprite.UnscheduleAll();
-			
+			/*
 			if (texInfo != null) 
 			{
 				texInfo.Dispose();
 				texInfo = null;
 			}
+			*/
 		}
 	}
 }
