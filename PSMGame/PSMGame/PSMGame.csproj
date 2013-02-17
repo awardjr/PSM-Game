@@ -80,6 +80,14 @@
     <Content Include="assets\ground_tile.png" />
     <Content Include="assets\cat.png" />
     <Content Include="assets\seaball.png" />
+    <Content Include="assets\stingray_animation.png" />
+    <Content Include="assets\stingray_float.png" />
+    <Content Include="assets\plant.png" />
+    <Content Include="assets\seasponge_red.png" />
+    <Content Include="assets\Water_Layer.png" />
+    <Content Include="assets\waveline.png" />
+    <Content Include="assets\seasponge_yellow.png" />
+    <Content Include="assets\Title_Screen.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />
