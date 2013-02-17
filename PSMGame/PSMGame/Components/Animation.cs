@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace PSM
 {
 	public class Animation
 	{
 		private float _currentFrame;
-		public Action AnimationCompleted;
 		
 		public bool IsPlaying { get; private set;}
 		public int FirstFrame { get; private set;}
@@ -36,7 +33,6 @@ namespace PSM
 		
 		public Animation (int firstFrame, int lastFrame, float rate, bool loop)
 		{
-			AnimationCompleted = new Action();
 			FirstFrame = firstFrame;
 			LastFrame = lastFrame;
 			_currentFrame = firstFrame;
@@ -62,7 +58,6 @@ namespace PSM
 			
 			if(_currentFrame > LastFrame)
 			{
-				AnimationCompleted.Invoke();
 				_currentFrame = _currentFrame - LastFrame;	
 				
 			}
