@@ -28,7 +28,7 @@ namespace PSM
 
 		public void Update ()
 		{
-			System.Console.WriteLine("TRIGGER");
+			//System.Console.WriteLine("TRIGGER");
 			double currentTime = Director.Instance.DirectorTime;
 			//double elapsedTime = currentTime - _startTime;
 			

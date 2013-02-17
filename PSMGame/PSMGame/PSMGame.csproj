@@ -60,6 +60,7 @@
     <Compile Include="GameScenes\TitleScene.cs" />
     <Compile Include="Components\Bullet.cs" />
     <Compile Include="Components\Environment\WaterTile.cs" />
+    <Compile Include="GameScenes\EndScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />

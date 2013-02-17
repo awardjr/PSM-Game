@@ -33,14 +33,9 @@ namespace PSM
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 			sprite.Quad.S = new Vector2(258, 214);
 			sprite.CenterSprite();
-<<<<<<< OURS
-			
 			isJumping = false;
 
-=======
 			BoundingBox = new Bounds2(new Vector2(0, 258), new Vector2(0, 214));
-			
->>>>>>> THEIRS
 		}
 		
 		public Vector2 spriteSize()
@@ -61,7 +56,7 @@ namespace PSM
 			if (this.isJumping)
 			{
 				float newX = this.sprite.Position.X;
-				float newY = _waterLevel + 150-(_jumpOffset*_jumpOffset);//this.sprite.Position.Y;
+				float newY = _waterLevel + 150-(_jumpOffset*_jumpOffset);
 				
 				_jumpOffset++;
 				if (newY < _waterLevel)
@@ -69,7 +64,7 @@ namespace PSM
 					this.isJumping = false;
 					_jumpOffset = 0;
 				}
-				
+				BoundingBox = new Bounds2(sprite.LocalToWorld( new Vector2(sprite.Position.X - 258/2, sprite.Position.Y  - 214/2)),sprite.LocalToWorld( new Vector2(sprite.Position.X + 258/2, sprite.Position.Y + 214/2)));
 				this.sprite.Position = new Vector2(newX,newY);
 			}
 

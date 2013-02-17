@@ -95,6 +95,7 @@ namespace PSM
 			_sprite.Quad.S = texInfo.TextureSizef; 
 			_sprite.CenterSprite();
 			_sprite.TileIndex2D = new Vector2i(0,0);
+			
 			GenerateMap();
 			/*
 			_enemies = new List<Enemy>();
