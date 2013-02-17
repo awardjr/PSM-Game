@@ -42,6 +42,7 @@ namespace PSM
 		private EventManager _eventManager;
 		
 		private List<Enemy> _enemies;
+		private List<Bullet> _bullets;
 		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
 		
 		public GamePlayScene ()
@@ -109,7 +110,13 @@ namespace PSM
 			*/
 			var dummyFish = new FishEnemy (new Vector2 (-25.0f, -25.0f), _playerCreature);
 			dummyFish.sprite.UnscheduleAll();
+			//dummyFish.sprite.Visible = false;
 			_mainLayer.AddChild (FishEnemy.spriteList);
+			
+			var dummyBullet = new Bullet(new Vector2(-25.0f,-25.0f));
+			dummyBullet.sprite.UnscheduleAll();
+			//dummyBullet.sprite.Visible = false;
+			_mainLayer.AddChild(Bullet.spriteList);
 			
 			_waterLayer = new Layer(SceneCamera);
 			_waterLayer.AddChild(_water);
@@ -180,7 +187,8 @@ namespace PSM
 			*/
 			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0))
 			{
-				
+				Bullet bull = new Bullet(_playerCreature.sprite.Position);
+				_bullets.Add(bull);
 			}
 			/*
 			foreach (Enemy enemy in _enemies) {
