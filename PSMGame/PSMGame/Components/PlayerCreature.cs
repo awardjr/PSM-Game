@@ -10,19 +10,20 @@ namespace PSM
 	{
 		public SpriteTile sprite;
 		private TextureInfo texInfo;
-		public Animation CurrentAnimation;
+		//public Animation CurrentAnimation;
 
 		public Dictionary<string, Animation> Animations; 
 
 		public PlayerCreature ()
 		{
-			Animations = new Dictionary<string, Animation>();
-			texInfo = new TextureInfo(AssetManager.GetTexture("spritesheet"), new Vector2i(2,2), TRS.Quad0_1);
-			Animations.Add("idle" , new Animation(0, 2, 0.4f, false));
-			CurrentAnimation = Animations["idle"];
-			CurrentAnimation.Play();
+		//	Animations = new Dictionary<string, Animation>();
+		//	texInfo = new TextureInfo(AssetManager.GetTexture("spritesheet"), new Vector2i(2,2), TRS.Quad0_1);
+			//Animations.Add("idle" , new Animation(0, 2, 0.4f, false));
+		//	CurrentAnimation = Animations["idle"];
+		//	CurrentAnimation.Play();
+			texInfo = new TextureInfo(AssetManager.GetTexture("cat"));
 			sprite = new SpriteTile(texInfo);
-			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
+			//sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 			sprite.Quad.S = texInfo.TextureSizef;
 			sprite.CenterSprite();
 		}
@@ -34,13 +35,13 @@ namespace PSM
 		
 		public void SetAnimation(string animation)
 		{
-			CurrentAnimation = Animations[animation];	
+		//	CurrentAnimation = Animations[animation];	
 		}
 
 		public void Update(float dt)
 		{
-			CurrentAnimation.Update(dt);
-			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
+		//	CurrentAnimation.Update(dt);
+		//	sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 		}
 	}
 }

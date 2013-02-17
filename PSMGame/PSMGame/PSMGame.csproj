@@ -51,10 +51,7 @@
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\PlayerCreature.cs" />
     <Compile Include="GameScenes\GamePlayScene.cs" />
-    <Compile Include="Components\Events\EventManager.cs" />
-    <Compile Include="Components\Events\Event.cs" />
-    <Compile Include="Components\Events\EnemySpawnEvent.cs" />
-    <Compile Include="Components\Events\EnvironmentEvent.cs" />
+    <Compile Include="Components\Environment\GroundTile.cs" />
   </ItemGroup>
   <ItemGroup>
     <ShaderProgram Include="shaders\Simple.fcg" />
@@ -74,8 +71,9 @@
     <Content Include="assets\fish.png" />
     <Content Include="assets\spritesheet.png" />
     <Content Include="assets\water.png" />
-    <Content Include="assets\Background_Paper.png" />
-    <Content Include="assets\Ground_Tile.png" />
+    <Content Include="assets\background_paper.png" />
+    <Content Include="assets\ground_tile.png" />
+    <Content Include="assets\cat.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="GameScenes\" />
@@ -83,7 +81,7 @@
     <Folder Include="Components\" />
     <Folder Include="Components\Enemies\" />
     <Folder Include="assets\audio\" />
-    <Folder Include="Components\Events\" />
+    <Folder Include="Components\Environment\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.md" />

@@ -32,7 +32,7 @@ namespace PSM
 		{
 			return boundingBox.Overlaps(otherBounds);
 		}
-		//public abstract void UpdateEnemyState();
+		public abstract void UpdateEnemyState();
 		public abstract void Die(); // play death animation
 		public abstract void Cleanup();
 	}

@@ -29,7 +29,6 @@ namespace PSM
 		private Camera2D SceneCamera;
 		private ArrayList _enemies;
 		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
-		private EventManager _eventManager;
 		
 		public MainScene ()
 		{
@@ -77,16 +76,14 @@ namespace PSM
 			
 			// enemy sprite test code
 			var fish0 = new FishEnemy (new Vector2 (30.0f, 30.0f), _playerCreature);
-			//var fish1 = new FishEnemy (new Vector2 (15.0f, 15.0f), _playerCreature);
-			//var fish2 = new FishEnemy (new Vector2 (100.0f, 70.0f), _playerCreature);
+			var fish1 = new FishEnemy (new Vector2 (15.0f, 15.0f), _playerCreature);
+			var fish2 = new FishEnemy (new Vector2 (100.0f, 70.0f), _playerCreature);
 			
 			_enemies.Add (fish0);
-			//_enemies.Add (fish1);
-			//_enemies.Add (fish2);
+			_enemies.Add (fish1);
+			_enemies.Add (fish2);
 						
 			_main.AddChild (FishEnemy.spriteList);
-			
-			_eventManager = new EventManager(_main,_playerCreature);
 		}
 	
 		public override void Update (float dt)
@@ -119,15 +116,14 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
-			/*
+			
 			foreach (Enemy enemy in _enemies) {
 				enemy.UpdateEnemyState ();
 			}
-			*/
+			
 			_playerCreature.Update (dt);
 			//_playerCreature.sprite.DebugDrawContentLocalBounds();
-			
-			_eventManager.Update();
+
 			
 			//SceneCamera.Center = _playerCreature.sprite.Position;
 			
