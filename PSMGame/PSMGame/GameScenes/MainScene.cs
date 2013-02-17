@@ -116,11 +116,11 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
-			
+			/*
 			foreach (Enemy enemy in _enemies) {
 				enemy.UpdateEnemyState ();
 			}
-			
+			*/
 			_playerCreature.Update (dt);
 			//_playerCreature.sprite.DebugDrawContentLocalBounds();
 

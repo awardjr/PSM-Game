@@ -39,7 +39,9 @@ namespace PSM
 		
 		private int _garnishDelay;
 		
-		private List<Enemy> _enemies;
+		private EventManager _eventManager;
+		
+		//private List<Enemy> _enemies;
 		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
 		
 		public GamePlayScene ()
@@ -88,7 +90,7 @@ namespace PSM
 			_sprite.CenterSprite();
 			_sprite.TileIndex2D = new Vector2i(0,0);
 			GenerateMap();
-			
+			/*
 			_enemies = new List<Enemy>();
 			
 			// enemy sprite test code
@@ -99,6 +101,9 @@ namespace PSM
 			_enemies.Add (fish0);
 			_enemies.Add (fish1);
 			_enemies.Add (fish2);
+			*/
+			var dummyFish = new FishEnemy (new Vector2 (-25.0f, -25.0f), _playerCreature);
+			dummyFish.sprite.UnscheduleAll();
 			_mainLayer.AddChild (FishEnemy.spriteList);
 			
 			_waterLayer = new Layer(SceneCamera);
@@ -110,7 +115,7 @@ namespace PSM
 			AddChild(_groundLayer);
 			AddChild(_groundGarnish);
 			
-			
+			_eventManager = new EventManager(_mainLayer,_playerCreature);
 		}
 		
 		public void GenerateMap()
@@ -152,11 +157,11 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
-			
+			/*
 			foreach (Enemy enemy in _enemies) {
-			//	enemy.UpdateEnemyState ();
+				enemy.UpdateEnemyState ();
 			}
-			
+			*/
 			if(_garnishTimer.Seconds() >=  _garnishDelay )
 			{
 				_groundLevel -= 20;
@@ -180,6 +185,9 @@ namespace PSM
 			_backgroundLayer.Update (dt);
 			_groundLayer.Update (dt);
 			_groundGarnish.Update(dt);
+			
+			_eventManager.Update();
+			
 			base.Update (dt);
 		}
 	}

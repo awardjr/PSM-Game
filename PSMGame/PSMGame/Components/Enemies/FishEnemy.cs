@@ -13,6 +13,8 @@ namespace PSM
 		public static SpriteList spriteList = null;
 		public PlayerCreature player;
 		
+		public delegate void _updateFunc();
+		
 		private FishEnemy (){}
 
 		public FishEnemy (Vector2 pos, PlayerCreature player)
@@ -39,6 +41,7 @@ namespace PSM
 			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
 			sprite.CenterSprite();
 			sprite.Position = pos;
+			sprite.Schedule((dt) => UpdateEnemyState(dt));
 		}
 		
 		public Vector2 spriteSize()
@@ -46,7 +49,7 @@ namespace PSM
 			return FishEnemy.spriteList.TextureInfo.TileSizeInPixelsf;
 		}
 		
-		public override void UpdateEnemyState()
+		public void UpdateEnemyState(float dt)
 		{
 			float newX = this.sprite.Position.X;
 			float newY = this.sprite.Position.Y;
@@ -77,6 +80,8 @@ namespace PSM
 		// not thread-safe!
 		public override void Cleanup ()
 		{
+			this.sprite.UnscheduleAll();
+			
 			if (texInfo != null) 
 			{
 				texInfo.Dispose();
