@@ -142,8 +142,16 @@ namespace PSM
 			if (((gamePadData.Buttons & GamePadButtons.Up) != 0) 
 			    && (_playerCreature.sprite.Position.Y < _screenSize.Y - (_playerCreature.spriteSize ().Y))) 
 			{				
+				if ((_playerCreature.sprite.Position.Y > _waterLevel)
+				    && (_playerCreature.isJumping == false))
+				{
+					_playerCreature.isJumping = true;
+				}
+				else
+				{
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X,
 				                                              _playerCreature.sprite.Position.Y + 8);
+				}
 			}
 			if (((gamePadData.Buttons & GamePadButtons.Down) != 0)
 			    && (_playerCreature.sprite.Position.Y > _playerCreature.spriteSize ().Y)) 
@@ -163,11 +171,13 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
+			/*
 			if (((gamePadData.Buttons & GamePadButtons.Square) != 0)
 			    && (_playerCreature.isJumping == false))
 			{
 				_playerCreature.isJumping = true;
 			}
+			*/
 			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0))
 			{
 				
