@@ -28,7 +28,6 @@ namespace PSM
 
 		public void Update ()
 		{
-			System.Console.WriteLine("TRIGGER");
 			double currentTime = Director.Instance.DirectorTime;
 			//double elapsedTime = currentTime - _startTime;
 			
@@ -38,8 +37,6 @@ namespace PSM
 			Event currentEvent = _eventList[_currentIndex];
 			if (currentTime > currentEvent.triggerTime + _startTime)
 			{
-				System.Console.WriteLine (currentEvent.triggerTime);
-				System.Console.WriteLine (currentTime);
 				currentEvent.triggerEvent();
 				_currentIndex++;
 			}

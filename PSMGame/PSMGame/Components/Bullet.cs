@@ -10,9 +10,11 @@ namespace PSM
 	{
 		public SpriteUV sprite;
 
-		private float _speed = 4.0f;
+		private float _speed = 8.0f;
 		private static TextureInfo texInfo = null;
 		public static SpriteList spriteList = null;
+		
+		public static int cooldown = 0;
 		
 		public Bullet (Vector2 pos)
 		{
@@ -27,9 +29,9 @@ namespace PSM
 			if (spriteList == null)
 			{
 				spriteList = new SpriteList(texInfo);
+				spriteList.Position = new Vector2(0.0f,0.0f);
 			}
 			
-			spriteList.Position = new Vector2(0.0f,0.0f);
 			spriteList.AddChild(sprite);
 			sprite.Quad.S = texInfo.TextureSizef; // map 1:1 on screen -- necessary? !!!\
 			

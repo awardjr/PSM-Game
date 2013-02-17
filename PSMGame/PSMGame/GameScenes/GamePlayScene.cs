@@ -96,9 +96,10 @@ namespace PSM
 			_sprite.CenterSprite();
 			_sprite.TileIndex2D = new Vector2i(0,0);
 			GenerateMap();
-			/*
-			_enemies = new List<Enemy>();
 			
+			_enemies = new List<Enemy>();
+			_bullets = new List<Bullet>();
+			/*
 			// enemy sprite test code
 			var fish0 = new FishEnemy (new Vector2 (30.0f, 30.0f), _playerCreature);
 			var fish1 = new FishEnemy (new Vector2 (15.0f, 15.0f), _playerCreature);
@@ -185,10 +186,15 @@ namespace PSM
 				_playerCreature.isJumping = true;
 			}
 			*/
-			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0))
+			if (Bullet.cooldown > 0)
+				Bullet.cooldown--;
+			
+			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0) && (Bullet.cooldown <= 0))
 			{
+				System.Console.WriteLine("Pew!");
 				Bullet bull = new Bullet(_playerCreature.sprite.Position);
 				_bullets.Add(bull);
+				Bullet.cooldown += 20;
 			}
 			/*
 			foreach (Enemy enemy in _enemies) {
