@@ -6,11 +6,17 @@ using Sce.PlayStation.HighLevel.GameEngine2D.Base;
 
 namespace PSM
 {
-	public class Bullet :SpriteTile
+	public class Bullet : SpriteTile
 	{
-		public Bullet (TextureInfo texInfo) : base(texInfo) 
+		public Bullet (TextureInfo texInfo) : base(texInfo)
 		{
 			
+		}
+		
+		public override void Update (float dt)
+		{
+			Position += new Vector2(1,0);
+			base.Update (dt);
 		}
 	}
 }

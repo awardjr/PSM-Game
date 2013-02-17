@@ -36,12 +36,12 @@ namespace PSM
 		private Layer _waterLayer;
 		private Layer _groundGarnish;
 		private Timer _garnishTimer;
-		
+		private WaterTile _waterTop;
 		private int _garnishDelay;
 		
 		private EventManager _eventManager;
 		
-		//private List<Enemy> _enemies;
+		private List<Enemy> _enemies;
 		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
 		
 		public GamePlayScene ()
@@ -76,8 +76,13 @@ namespace PSM
 			_water = new SpriteTile(new TextureInfo(AssetManager.GetTexture("water")));
 			_water.Quad.S = _water.TextureInfo.TextureSizef;
 			_water.CenterSprite();
-			_water.BlendMode = BlendMode.Multiplicative;
 			_water.Position = SceneCamera.CalcBounds().Center + new Vector2(0, -244);
+			
+			 _waterTop = new WaterTile(new TextureInfo(AssetManager.GetTexture("waveline")));
+			_waterTop.Quad.S = _waterTop.TextureInfo.TextureSizef;
+			_waterTop.CenterSprite();
+			_waterTop.Position = _water.Position + new Vector2(0 ,_water.TextureInfo.TextureSizef.Y /2 );
+			_waterTop.Position = SceneCamera.CalcBounds().Center + new Vector2(0, -244 + _water.TextureInfo.TextureSizef.Y/2f);
 			
 			_groundLayer = new Layer(SceneCamera, 1, 1);
 			_groundGarnish = new Layer(SceneCamera, 1, 1);
@@ -108,12 +113,14 @@ namespace PSM
 			
 			_waterLayer = new Layer(SceneCamera);
 			_waterLayer.AddChild(_water);
+			_waterLayer.AddChild(_waterTop);
 			
 			AddChild (_backgroundLayer);
-			AddChild(_waterLayer);
+			
 			AddChild (_mainLayer);
 			AddChild(_groundLayer);
 			AddChild(_groundGarnish);
+			AddChild(_waterLayer);
 			
 			_eventManager = new EventManager(_mainLayer,_playerCreature);
 		}
@@ -124,7 +131,6 @@ namespace PSM
 			{
 				_sprite = new GroundTile(_ground.TextureInfo);
 				_groundLayer.AddChild(_sprite);
-			//	_sprite.TileIndex1D = _random.Next(0,4);
 				_sprite.Quad.S = _sprite.TextureInfo.TextureSizef;
 				_sprite.Position = new Vector2(SceneCamera.CalcBounds().Point00.X + i * _sprite.TextureInfo.TextureSizef.X, SceneCamera.CalcBounds().Point00.Y - _sprite.TextureInfo.TextureSizef.Y / 2);	
 			}
@@ -157,6 +163,10 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
+			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0)
+			{
+				
+			}
 			/*
 			foreach (Enemy enemy in _enemies) {
 				enemy.UpdateEnemyState ();
@@ -166,17 +176,30 @@ namespace PSM
 			{
 				_groundLevel -= 20;
 				_garnishDelay = _random.Next (3, 10);
-				_sprite = new GarnishTile(new TextureInfo(AssetManager.GetTexture("seaball")));
+				var garnish = _random.Next(0, 3);
+				if(garnish == 0)
+				{
+					_sprite = new GarnishTile(new TextureInfo(AssetManager.GetTexture("seaball")));
+				} else if(garnish == 1)
+				{
+					_sprite = new GarnishTile(new TextureInfo(AssetManager.GetTexture("plant")));	
+				} else if(garnish == 2)
+				{
+					_sprite = new GarnishTile(new TextureInfo(AssetManager.GetTexture("seasponge_red")));	
+				} else if(garnish == 3)
+				{
+					_sprite = new GarnishTile(new TextureInfo(AssetManager.GetTexture("seasponge_yellow")));	
+				}
 				_groundGarnish.AddChild(_sprite);
+				_groundGarnish.Offset = new Vector2(0,_groundLevel);
 				_sprite.Quad.S = _sprite.TextureInfo.TextureSizef;
-				_sprite.Position = new Vector2(SceneCamera.CalcBounds().Point10.X +_sprite.TextureInfo.TextureSizei.X, _groundLayer.Position.Y + 140);	
+				_sprite.Position = new Vector2(SceneCamera.CalcBounds().Point10.X +_sprite.TextureInfo.TextureSizei.X, _groundLayer.Position.Y + _groundLevel + 140);	
 				_garnishTimer.Reset();
-				
 			}
 			
-			if(_playerCreature.sprite.Position.Y < _groundLayer.Position.Y + 140)
+			if(_playerCreature.sprite.Position.Y < _groundLayer.Position.Y + 140 + 64)
 			{
-				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X, _groundLayer.Position.Y + 140);
+				_playerCreature.sprite.Position = new Vector2(_playerCreature.sprite.Position.X, _groundLayer.Position.Y + 140 + 64);
 			}
 			_waterLayer.Offset = new Vector2(0,_waterLevel);
 			_groundLayer.Offset = new Vector2(0, _groundLevel );
@@ -185,6 +208,7 @@ namespace PSM
 			_backgroundLayer.Update (dt);
 			_groundLayer.Update (dt);
 			_groundGarnish.Update(dt);
+			_waterTop.Update (dt);
 			
 			_eventManager.Update();
 			

@@ -17,20 +17,19 @@ namespace PSM
 		public PlayerCreature ()
 		{
 			Animations = new Dictionary<string, Animation>();
-			texInfo = new TextureInfo(AssetManager.GetTexture("spritesheet"), new Vector2i(2,2), TRS.Quad0_1);
+			texInfo = new TextureInfo(AssetManager.GetTexture("catanimation"), new Vector2i(5,1),TRS.Quad0_1);
 			Animations.Add("idle" , new Animation(0, 3, 0.1f, false));
 			CurrentAnimation = Animations["idle"];
 			CurrentAnimation.Play();
-			//texInfo = new TextureInfo(AssetManager.GetTexture("cat"));
 			sprite = new SpriteTile(texInfo);
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
-			sprite.Quad.S = texInfo.TextureSizef;
+			sprite.Quad.S = new Vector2(258, 214);
 			sprite.CenterSprite();
 		}
 		
 		public Vector2 spriteSize()
 		{
-			return this.sprite.TextureInfo.TileSizeInPixelsf;
+			return new Vector2(64, 120);
 		}
 		
 		public void SetAnimation(string animation)

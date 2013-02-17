@@ -40,7 +40,7 @@ namespace PSM
 			if((gamePadData.Buttons & GamePadButtons.Start) != 0)
 			{
 				_musicPlayer.Stop();
-				Director.Instance.ReplaceScene( new TransitionCrossFade( new GamePlayScene() )
+				Director.Instance.ReplaceScene( new TransitionSolidFade( new GamePlayScene() )
                     { Duration = 2.0f, Tween = (x) => Math.PowEaseOut( x, 3.0f )} );
 
 			}
