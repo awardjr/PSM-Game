@@ -11,6 +11,8 @@ namespace PSM
 		public SpriteTile sprite;
 		private TextureInfo texInfo;
 		public Animation CurrentAnimation;
+		public Bounds2 BoundingBox;
+		public bool Dead { get; set;}
 
 		public Dictionary<string, Animation> Animations; 
 		
@@ -21,6 +23,7 @@ namespace PSM
 		
 		public PlayerCreature ()
 		{
+			Dead = false;
 			Animations = new Dictionary<string, Animation>();
 			texInfo = new TextureInfo(AssetManager.GetTexture("catanimation"), new Vector2i(5,1),TRS.Quad0_1);
 			Animations.Add("idle" , new Animation(0, 3, 0.1f, false));
@@ -30,9 +33,14 @@ namespace PSM
 			sprite.TileIndex1D = CurrentAnimation.CurrentFrame;
 			sprite.Quad.S = new Vector2(258, 214);
 			sprite.CenterSprite();
+<<<<<<< OURS
 			
 			isJumping = false;
 
+=======
+			BoundingBox = new Bounds2(new Vector2(0, 258), new Vector2(0, 214));
+			
+>>>>>>> THEIRS
 		}
 		
 		public Vector2 spriteSize()
@@ -44,7 +52,7 @@ namespace PSM
 		{
 			CurrentAnimation = Animations[animation];	
 		}
-
+		
 		public void Update(float dt)
 		{
 			CurrentAnimation.Update(dt);

@@ -41,8 +41,7 @@ namespace PSM
 			{
 				_musicPlayer.Stop();
 				Director.Instance.ReplaceScene( new TransitionSolidFade( new GamePlayScene() )
-                    { Duration = 2.0f, Tween = (x) => Math.PowEaseOut( x, 3.0f )} );
-
+                    { Duration = 1.0f, Tween = (x) => Math.PowEaseOut( x, 3.0f )} );
 			}
 		}
 	}

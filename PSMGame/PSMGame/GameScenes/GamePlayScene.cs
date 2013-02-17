@@ -33,6 +33,7 @@ namespace PSM
 		private Layer _backgroundLayer;
 		private Layer _groundLayer;
 		private Layer _mainLayer;
+		private Layer _fishLayer;
 		private Layer _waterLayer;
 		private Layer _groundGarnish;
 		private Timer _garnishTimer;
@@ -42,7 +43,6 @@ namespace PSM
 		private EventManager _eventManager;
 		
 		private List<Enemy> _enemies;
-		private List<Bullet> _bullets;
 		private Vector2 _screenSize = new Vector2 (960.0f, 544.0f);
 		
 		public GamePlayScene ()
@@ -110,13 +110,7 @@ namespace PSM
 			*/
 			var dummyFish = new FishEnemy (new Vector2 (-25.0f, -25.0f), _playerCreature);
 			dummyFish.sprite.UnscheduleAll();
-			//dummyFish.sprite.Visible = false;
 			_mainLayer.AddChild (FishEnemy.spriteList);
-			
-			var dummyBullet = new Bullet(new Vector2(-25.0f,-25.0f));
-			dummyBullet.sprite.UnscheduleAll();
-			//dummyBullet.sprite.Visible = false;
-			_mainLayer.AddChild(Bullet.spriteList);
 			
 			_waterLayer = new Layer(SceneCamera);
 			_waterLayer.AddChild(_water);
@@ -125,6 +119,7 @@ namespace PSM
 			AddChild (_backgroundLayer);
 			
 			AddChild (_mainLayer);
+		//	AddChild(_fishLayer);
 			AddChild(_groundLayer);
 			AddChild(_groundGarnish);
 			AddChild(_waterLayer);
@@ -149,16 +144,8 @@ namespace PSM
 			if (((gamePadData.Buttons & GamePadButtons.Up) != 0) 
 			    && (_playerCreature.sprite.Position.Y < _screenSize.Y - (_playerCreature.spriteSize ().Y))) 
 			{				
-				if ((_playerCreature.sprite.Position.Y > _waterLevel)
-				    && (_playerCreature.isJumping == false))
-				{
-					_playerCreature.isJumping = true;
-				}
-				else
-				{
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X,
 				                                              _playerCreature.sprite.Position.Y + 8);
-				}
 			}
 			if (((gamePadData.Buttons & GamePadButtons.Down) != 0)
 			    && (_playerCreature.sprite.Position.Y > _playerCreature.spriteSize ().Y)) 
@@ -178,23 +165,23 @@ namespace PSM
 				_playerCreature.sprite.Position = new Vector2 (_playerCreature.sprite.Position.X + 6,
 				                                              _playerCreature.sprite.Position.Y);
 			}
-			/*
 			if (((gamePadData.Buttons & GamePadButtons.Square) != 0)
 			    && (_playerCreature.isJumping == false))
 			{
 				_playerCreature.isJumping = true;
 			}
-			*/
-			if (((gamePadData.Buttons & GamePadButtons.Circle) != 0))
-			{
-				Bullet bull = new Bullet(_playerCreature.sprite.Position);
-				_bullets.Add(bull);
-			}
+		
 			/*
 			foreach (Enemy enemy in _enemies) {
 				enemy.UpdateEnemyState ();
 			}
 			*/
+			
+			if(_playerCreature.Dead)
+			{
+				Director.Instance.ReplaceScene( new TransitionSolidFade( new MainScene() )
+                    { Duration = 1.0f, Tween = (x) => Sce.PlayStation.HighLevel.GameEngine2D.Base.Math.PowEaseOut( x, 3.0f )} );	
+			}
 			if(_garnishTimer.Seconds() >=  _garnishDelay )
 			{
 				_groundLevel -= 20;

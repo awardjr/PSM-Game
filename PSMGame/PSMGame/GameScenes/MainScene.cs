@@ -83,7 +83,7 @@ namespace PSM
 			_enemies.Add (fish1);
 			_enemies.Add (fish2);
 						
-			_main.AddChild (FishEnemy.spriteList);
+		//	_main.AddChild (FishEnemy.spriteList);
 		}
 	
 		public override void Update (float dt)
