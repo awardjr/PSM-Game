@@ -1,3 +1,4 @@
+<<<<<<< OURS
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
@@ -176,3 +177,97 @@
     <None Include="Readme.md" />
   </ItemGroup>
 </Project>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22A7FEC2-BEA6-480B-84FB-10C7B532BF54}</ProjectGuid>
+    <ProjectTypeGuids>{69878862-DA7D-4DC6-B0A1-50D8FAB4242F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>PSMGame</AssemblyName>
+    <RootNamespace>PSM</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Sce.PlayStation.Core" />
+    <Reference Include="Sce.PlayStation.HighLevel.GameEngine2D" />
+    <Reference Include="Sce.PlayStation.HighLevel.Physics2D" />
+    <Reference Include="Sce.PlayStation.HighLevel.UI" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppMain.cs" />
+    <Compile Include="GameScenes\MainScene.cs" />
+    <Compile Include="Components\Layer.cs" />
+    <Compile Include="Components\PlayerInput.cs" />
+    <Compile Include="Components\PhysicalSpriteUV.cs" />
+    <Compile Include="Components\Enemies\FishEnemy.cs" />
+    <Compile Include="Components\Enemies\Enemy.cs" />
+    <Compile Include="GameScenes\MapTestScene.cs" />
+    <Compile Include="Components\AssetManager.cs" />
+    <Compile Include="Components\Animation.cs" />
+    <Compile Include="Components\PlayerCreature.cs" />
+    <Compile Include="GameScenes\GamePlayScene.cs" />
+    <Compile Include="Components\Environment\GroundTile.cs" />
+    <Compile Include="Components\Environment\GarnishTile.cs" />
+    <Compile Include="Components\Bullet.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ShaderProgram Include="shaders\Simple.fcg" />
+    <ShaderProgram Include="shaders\Simple.vcg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PsmMetadata Include="app.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Sce\Sce.Psm.CSharp.targets" />
+  <ItemGroup>
+    <Content Include="king_water_drop.png" />
+    <Content Include="assets\square.png" />
+    <Content Include="assets\background.png" />
+    <Content Include="assets\floor.png" />
+    <Content Include="assets\circle.png" />
+    <Content Include="assets\bird.png" />
+    <Content Include="assets\fish.png" />
+    <Content Include="assets\spritesheet.png" />
+    <Content Include="assets\water.png" />
+    <Content Include="assets\background_paper.png" />
+    <Content Include="assets\ground_tile.png" />
+    <Content Include="assets\cat.png" />
+    <Content Include="assets\seaball.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GameScenes\" />
+    <Folder Include="assets\" />
+    <Folder Include="Components\" />
+    <Folder Include="Components\Enemies\" />
+    <Folder Include="assets\audio\" />
+    <Folder Include="Components\Environment\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme.md" />
+  </ItemGroup>
+</Project>
+>>>>>>> THEIRS
