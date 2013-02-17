@@ -18,7 +18,7 @@ namespace PSM
 			ENEMY_TYPE_BIRD
 		}
 
-		public SpriteUV sprite; // change type to SpriteTile when we get spritesheet assets
+		public SpriteTile sprite;
 		
 		public Bounds2 boundingBox;
 		
